@@ -5,8 +5,8 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
   <title>Johnny J. Vang</title>
-  <meta name="description" content="">
-  <meta name="keywords" content="">
+  <meta name="description" content="Johnny J. Vang robotics portfolio featuring ROS2 mobile robot validation, TurtleBot3 sensor validation, and system integration projects.">
+  <meta name="keywords" content="Johnny Vang, ROS2, TurtleBot3, robotics, sensor validation, odometry, IMU, lidar, Nav2, SLAM">
 
   <!-- Favicons -->
   <link href="assets/img/favicon.png" rel="icon">
@@ -26,24 +26,14 @@
 
   <!-- Main CSS File -->
   <link href="assets/css/main.css" rel="stylesheet">
-
-  <!-- =======================================================
-  * Template Name: MyPortfolio
-  * Template URL: https://bootstrapmade.com/myportfolio-bootstrap-portfolio-website-template/
-  * Updated: Aug 08 2024 with Bootstrap v5.3.3
-  * Author: BootstrapMade.com
-  * License: https://bootstrapmade.com/license/
-  ======================================================== -->
 </head>
 
 <body class="index-page">
 
   <header id="header" class="header d-flex align-items-center sticky-top">
-    <div class="container-fluid  position-relative d-flex align-items-center justify-content-between">
+    <div class="container-fluid position-relative d-flex align-items-center justify-content-between">
 
       <a href="index.html" class="logo d-flex align-items-center">
-        <!-- Uncomment the line below if you also wish to use an image logo -->
-        <!-- <img src="assets/img/logo.png" alt=""> -->
         <h1 class="sitename">Home</h1>
       </a>
 
@@ -61,228 +51,191 @@
 
   <main class="main">
 
-    <!-- Portfolio Section -->
     <section id="portfolio" class="portfolio section">
-
       <div class="container">
 
         <div class="isotope-layout" data-default-filter="*" data-layout="masonry" data-sort="original-order">
 
-          <div class="row align-items-center">
+          <div class="row align-items-center mb-4">
             <div class="col-lg-7 portfolio-info">
               <h3>Hello, I'm Johnny Vang</h3>
-              <p>Past and Present Robotics Projects</p>
+              <p>
+                Robotics projects focused on mobile robots, ROS2 validation, sensing,
+                simulation, and practical system debugging.
+              </p>
             </div>
             <div class="col-lg-5 text-center text-lg-end">
               <ul class="portfolio-filters isotope-filters" data-aos="fade-up" data-aos-delay="100">
                 <li data-filter="*" class="filter-active">All</li>
-                <li data-filter=".filter-app">Mobile Robots</li>
-                <li data-filter=".filter-product">Sensor Fusion</li>
-                <li data-filter=".filter-branding">Hardware Testing</li>
-                <li data-filter=".filter-books">ROS2</li>
-              </ul><!-- End Portfolio Filters -->
+                <li data-filter=".filter-mobile">Mobile Robots</li>
+                <li data-filter=".filter-sensor">Sensor Fusion</li>
+                <li data-filter=".filter-hardware">Hardware Testing</li>
+                <li data-filter=".filter-ros2">ROS2</li>
+              </ul>
             </div>
           </div>
 
-          <div>
-            <h1>Projects</h1>
-            <h3>Sensor Fusion</h3>
-            <ul>
-              <li>lidar</li>
-              <li>camera</li>
-              <li>imu</li>
-              <li>radar</li>
-            </ul>
-            <h3>Mobile Robots</h3>
-            <ul>
-              <li>Nav2</li>
-              <li>Slam</li>
-              <li>Gazebo</li>
-              <li>Mapping</li>
-            </ul>
-            <h3>Mobile Robots</h3>
-            <ul>
-              <li>Rasberry Pi</li>
-              <li>Arduino</li>
-              <li>Ros2_control</li>
-              <li>PID Control</li>
-            </ul>
-            <h3>labubu classifer: https://github.com/johnnyjvang/labubu_classifyer</h3>
-            <h3>eye health: https://github.com/johnnyjvang/eye_health</h3>
-            <h3>Optical Encoder - AruCu tags  - https://github.com/johnnyjvang/ubuntu_22_04_workspace/tree/main/Optical%20Encoder</h3>
-            <h3>Camera Calibration  - https://github.com/johnnyjvang/ubuntu_22_04_workspace/tree/main/camera_calibration</h3>
-            <h3>PID - Arduino Controller - https://github.com/johnnyjvang/arduino_project_2025</h3>
+          <div class="row mb-5">
+            <div class="col-lg-12">
+              <div class="p-4 border rounded-4">
+                <h2 class="mb-3">Projects</h2>
+                <div class="row g-4">
+                  <div class="col-md-3">
+                    <h5>Sensor Fusion</h5>
+                    <ul class="mb-0">
+                      <li>LiDAR</li>
+                      <li>Camera</li>
+                      <li>IMU</li>
+                      <li>Radar</li>
+                    </ul>
+                  </div>
+                  <div class="col-md-3">
+                    <h5>Mobile Robots</h5>
+                    <ul class="mb-0">
+                      <li>Nav2</li>
+                      <li>SLAM</li>
+                      <li>Gazebo</li>
+                      <li>Mapping</li>
+                    </ul>
+                  </div>
+                  <div class="col-md-3">
+                    <h5>Embedded / Controls</h5>
+                    <ul class="mb-0">
+                      <li>Raspberry Pi</li>
+                      <li>Arduino</li>
+                      <li>ros2_control</li>
+                      <li>PID Control</li>
+                    </ul>
+                  </div>
+                  <div class="col-md-3">
+                    <h5>Validation</h5>
+                    <ul class="mb-0">
+                      <li>Base Motion</li>
+                      <li>Sensors</li>
+                      <li>TF</li>
+                      <li>Localization</li>
+                    </ul>
+                  </div>
+                </div>
+
+                <hr class="my-4">
+
+                <div class="row g-3">
+                  <div class="col-lg-6">
+                    <p class="mb-1"><strong>GitHub</strong></p>
+                    <p class="mb-0">
+                      <a href="https://github.com/johnnyjvang/tb3_sensors_validation" target="_blank" rel="noopener noreferrer">
+                        tb3_sensors_validation
+                      </a>
+                    </p>
+                  </div>
+                  <div class="col-lg-6">
+                    <p class="mb-1"><strong>Featured Project</strong></p>
+                    <p class="mb-0">TurtleBot3 sensor and odometry validation suite built in ROS 2 Jazzy.</p>
+                  </div>
+                </div>
+
+              </div>
+            </div>
           </div>
 
-          <div class="row gy-4 isotope-container" data-aos="fade-up" data-aos-delay="200" style="position: relative; height: 1344px;">
+          <div class="row gy-4 isotope-container" data-aos="fade-up" data-aos-delay="200">
 
-            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-app" style="position: absolute; left: 0px; top: 0px;">
+            <!-- Featured Project: TB3 Sensors Validation -->
+            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-mobile filter-sensor filter-ros2">
               <div class="portfolio-content h-100">
-                <img src="assets/img/portfolio/lidar.png" class="img-fluid" alt="">
+                <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fe-shop.robotis.co.jp%2Fuploads%2FItems%2Fturtlebot3%2Fturtlebot3_burger_2022_tn1.jpg&f=1&nofb=1&ipt=61a8b65f5c6f3a85152f0b803311ccb914b542af6340ff4b538eba54f91daeba" class="img-fluid" alt="TurtleBot3 Sensors Validation">
+                
                 <div class="portfolio-info">
-                  <h4>Lidar Simulation</h4>
-                  <p>Lorem ipsum</p>
+                  <h4>TurtleBot3 Sensors Validation</h4>
+                  <p>ROS2 validation suite for odom, IMU, and LiDAR</p>
                   <div>
-                    <a href="assets/img/portfolio/lidar.png" title="Lidar Simulation" data-gallery="portfolio-gallery-app" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
-                    <a href="portfolio-details.html" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
+                    <a href="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fe-shop.robotis.co.jp%2Fuploads%2FItems%2Fturtlebot3%2Fturtlebot3_burger_2022_tn1.jpg&f=1&nofb=1&ipt=61a8b65f5c6f3a85152f0b803311ccb914b542af6340ff4b538eba54f91daeba" class="glightbox preview-link">
+                      <i class="bi bi-zoom-in"></i>
+                    </a>
+                    <a href="tb3-sensors-validation.html" class="details-link">
+                      <i class="bi bi-link-45deg"></i>
+                    </a>
                   </div>
                 </div>
-                <h1>Lidar Simulation</h1>
-              </div>
-            </div><!-- End Portfolio Item -->
 
-            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-product" style="position: absolute; left: 440px; top: 0px;">
-              <div class="portfolio-content h-100">
-                <img src="assets/img/portfolio/motor_wiring.jpg" class="img-fluid" alt="">
-                <div class="portfolio-info">
-                  <h4>Product 1</h4>
-                  <p>Lorem ipsum</p>
-                  <div>
-                    <a href="assets/img/portfolio/motor_wiring.jpg" title="Arduino Motor" data-gallery="portfolio-gallery-product" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
-                    <a href="portfolio-details.html" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
-                  </div>
-                </div>
-                <h1>DC Motor Controller</h1>
-              </div>
-            </div><!-- End Portfolio Item -->
+                <div class="p-3">
+                  <h4 class="mb-2">TurtleBot3 Sensors Validation</h4>
+                  <p class="mb-2">
+                    A ROS 2 (Jazzy) validation suite built to verify odometry, IMU, and LiDAR behavior
+                    before running SLAM or Nav2.
+                  </p>
+                  <p class="mb-0 small">
+                    Includes tests for message timing, odom drift and accuracy, IMU bias/noise,
+                    and LiDAR stability and obstacle detection.
+                  </p>
 
-            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-branding" style="position: absolute; left: 880px; top: 0px;">
-              <div class="portfolio-content h-100">
-                <img src="assets/img/portfolio/turtlebot3.png" class="img-fluid" alt="">
-                <div class="portfolio-info">
-                  <h4>Turtlebot3 ROS2 Upgrade</h4>
-                  <p>Lorem ipsum</p>
-                  <div>
-                    <a href="assets/img/portfolio/turtlebot3.png" title="Turtlebot3 ROS2 Upgrade" data-gallery="portfolio-gallery-branding" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
-                    <a href="portfolio-details.html" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
-                  </div>
-                </div>
-                <h1>Turtlebot3 ROS2 Upgrade</h1>
-              </div>
-            </div><!-- End Portfolio Item -->
-
-            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-books" style="position: absolute; left: 0px; top: 336px;">
-              <div class="portfolio-content h-100">
-                <img src="assets/img/portfolio/books-1.jpg" class="img-fluid" alt="">
-                <div class="portfolio-info">
-                  <h4>Books 1</h4>
-                  <p>Lorem ipsum</p>
-                  <div>
-                    <a href="assets/img/portfolio/books-1.jpg" title="Branding 1" data-gallery="portfolio-gallery-book" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
-                    <a href="portfolio-details.html" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
+                  <div class="mt-2">
+                    <a href="https://github.com/johnnyjvang/tb3_sensors_validation" target="_blank">
+                      GitHub Repository →
+                    </a>
                   </div>
                 </div>
               </div>
             </div><!-- End Portfolio Item -->
 
-            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-app" style="position: absolute; left: 440px; top: 336px;">
+            <!-- Supporting Card -->
+            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-mobile filter-ros2">
               <div class="portfolio-content h-100">
-                <img src="assets/img/portfolio/app-2.jpg" class="img-fluid" alt="">
+                <img src="assets/img/portfolio/lidar.png" class="img-fluid" alt="Sensor Validation Workflow">
                 <div class="portfolio-info">
-                  <h4>App 2</h4>
-                  <p>Lorem ipsum</p>
+                  <h4>Sensor Validation Workflow</h4>
+                  <p>Health-checking the sensing and motion stack before autonomy</p>
                   <div>
-                    <a href="assets/img/portfolio/app-2.jpg" title="App 2" data-gallery="portfolio-gallery-app" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
-                    <a href="portfolio-details.html" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
+                    <a href="assets/img/portfolio/lidar.png"
+                       title="Sensor Validation Workflow"
+                       data-gallery="portfolio-gallery-sensor"
+                       class="glightbox preview-link">
+                      <i class="bi bi-zoom-in"></i>
+                    </a>
+                    <a href="tb3-sensors-validation.html" title="More Details" class="details-link">
+                      <i class="bi bi-link-45deg"></i>
+                    </a>
                   </div>
+                </div>
+
+                <div class="p-3">
+                  <h4 class="mb-2">Why This Project Matters</h4>
+                  <p class="mb-0">
+                    The package was built as a practical pre-SLAM and pre-Nav2 health check to verify
+                    stable topic timing, reasonable odom behavior, acceptable IMU characteristics,
+                    and usable LiDAR measurements before debugging higher-level autonomy. :contentReference[oaicite:2]{index=2}
+                  </p>
                 </div>
               </div>
             </div><!-- End Portfolio Item -->
 
-            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-product" style="position: absolute; left: 880px; top: 336px;">
+            <!-- Supporting Card -->
+            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-sensor filter-hardware filter-ros2">
               <div class="portfolio-content h-100">
-                <img src="assets/img/portfolio/product-2.jpg" class="img-fluid" alt="">
+                <img src="assets/img/portfolio/motor_wiring.jpg" class="img-fluid" alt="Validation and Debugging">
                 <div class="portfolio-info">
-                  <h4>Product 2</h4>
-                  <p>Lorem ipsum</p>
+                  <h4>Validation and Debugging</h4>
+                  <p>Practical system testing for mobile robot bring-up</p>
                   <div>
-                    <a href="assets/img/portfolio/product-2.jpg" title="Product 2" data-gallery="portfolio-gallery-product" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
-                    <a href="portfolio-details.html" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
+                    <a href="assets/img/portfolio/motor_wiring.jpg"
+                       title="Validation and Debugging"
+                       data-gallery="portfolio-gallery-hardware"
+                       class="glightbox preview-link">
+                      <i class="bi bi-zoom-in"></i>
+                    </a>
+                    <a href="tb3-sensors-validation.html" title="More Details" class="details-link">
+                      <i class="bi bi-link-45deg"></i>
+                    </a>
                   </div>
                 </div>
-              </div>
-            </div><!-- End Portfolio Item -->
 
-            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-branding" style="position: absolute; left: 0px; top: 672px;">
-              <div class="portfolio-content h-100">
-                <img src="assets/img/portfolio/branding-2.jpg" class="img-fluid" alt="">
-                <div class="portfolio-info">
-                  <h4>Branding 2</h4>
-                  <p>Lorem ipsum</p>
-                  <div>
-                    <a href="assets/img/portfolio/branding-2.jpg" title="Branding 2" data-gallery="portfolio-gallery-branding" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
-                    <a href="portfolio-details.html" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
-                  </div>
-                </div>
-              </div>
-            </div><!-- End Portfolio Item -->
-
-            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-books" style="position: absolute; left: 440px; top: 672px;">
-              <div class="portfolio-content h-100">
-                <img src="assets/img/portfolio/books-2.jpg" class="img-fluid" alt="">
-                <div class="portfolio-info">
-                  <h4>Books 2</h4>
-                  <p>Lorem ipsum</p>
-                  <div>
-                    <a href="assets/img/portfolio/books-2.jpg" title="Branding 2" data-gallery="portfolio-gallery-book" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
-                    <a href="portfolio-details.html" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
-                  </div>
-                </div>
-              </div>
-            </div><!-- End Portfolio Item -->
-
-            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-app" style="position: absolute; left: 880px; top: 672px;">
-              <div class="portfolio-content h-100">
-                <img src="assets/img/portfolio/app-3.jpg" class="img-fluid" alt="">
-                <div class="portfolio-info">
-                  <h4>App 3</h4>
-                  <p>Lorem ipsum</p>
-                  <div>
-                    <a href="assets/img/portfolio/app-3.jpg" title="App 3" data-gallery="portfolio-gallery-app" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
-                    <a href="portfolio-details.html" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
-                  </div>
-                </div>
-              </div>
-            </div><!-- End Portfolio Item -->
-
-            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-product" style="position: absolute; left: 0px; top: 1008px;">
-              <div class="portfolio-content h-100">
-                <img src="assets/img/portfolio/product-3.jpg" class="img-fluid" alt="">
-                <div class="portfolio-info">
-                  <h4>Product 3</h4>
-                  <p>Lorem ipsum</p>
-                  <div>
-                    <a href="assets/img/portfolio/product-3.jpg" title="Product 3" data-gallery="portfolio-gallery-product" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
-                    <a href="portfolio-details.html" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
-                  </div>
-                </div>
-              </div>
-            </div><!-- End Portfolio Item -->
-
-            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-branding" style="position: absolute; left: 440px; top: 1008px;">
-              <div class="portfolio-content h-100">
-                <img src="assets/img/portfolio/branding-3.jpg" class="img-fluid" alt="">
-                <div class="portfolio-info">
-                  <h4>Branding 3</h4>
-                  <p>Lorem ipsum</p>
-                  <div>
-                    <a href="assets/img/portfolio/branding-3.jpg" title="Branding 2" data-gallery="portfolio-gallery-branding" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
-                    <a href="portfolio-details.html" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
-                  </div>
-                </div>
-              </div>
-            </div><!-- End Portfolio Item -->
-
-            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-books" style="position: absolute; left: 880px; top: 1008px;">
-              <div class="portfolio-content h-100">
-                <img src="assets/img/portfolio/books-3.jpg" class="img-fluid" alt="">
-                <div class="portfolio-info">
-                  <h4>Books 3</h4>
-                  <p>Lorem ipsum</p>
-                  <div>
-                    <a href="assets/img/portfolio/books-3.jpg" title="Branding 3" data-gallery="portfolio-gallery-book" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
-                    <a href="portfolio-details.html" title="More Details" class="details-link"><i class="bi bi-link-45deg"></i></a>
-                  </div>
+                <div class="p-3">
+                  <h4 class="mb-2">What It Tests</h4>
+                  <p class="mb-0">
+                    Includes 15 validation scripts spanning message rate checks, odom motion and drift,
+                    IMU bias/noise/yaw checks, and LiDAR validity and obstacle stability tests.
+                  </p>
                 </div>
               </div>
             </div><!-- End Portfolio Item -->
@@ -290,21 +243,14 @@
           </div><!-- End Portfolio Container -->
 
         </div>
-
       </div>
-
-    </section><!-- /Portfolio Section -->
-
-    
-
-
+    </section>
 
   </main>
 
   <footer id="footer" class="footer light-background">
-
     <div class="container">
-      <div class="copyright text-center ">
+      <div class="copyright text-center">
         <p>© <span>Copyright</span> <strong class="px-1 sitename">Johnny J. Vang</strong> <span>All Rights Reserved</span></p>
       </div>
       <div class="social-links d-flex justify-content-center">
@@ -314,23 +260,17 @@
         <a href=""><i class="bi bi-linkedin"></i></a>
       </div>
       <div class="credits">
-        <!-- All the links in the footer should remain intact. -->
-        <!-- You can delete the links only if you've purchased the pro version. -->
-        <!-- Licensing information: https://bootstrapmade.com/license/ -->
-        <!-- Purchase the pro version with working PHP/AJAX contact form: [buy-url] -->
         Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
       </div>
     </div>
-
   </footer>
 
-  <!-- Scroll Top -->
-  <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+  <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center">
+    <i class="bi bi-arrow-up-short"></i>
+  </a>
 
-  <!-- Preloader -->
   <div id="preloader"></div>
 
-  <!-- Vendor JS Files -->
   <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
   <script src="assets/vendor/php-email-form/validate.js"></script>
   <script src="assets/vendor/aos/aos.js"></script>
@@ -338,8 +278,6 @@
   <script src="assets/vendor/imagesloaded/imagesloaded.pkgd.min.js"></script>
   <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
   <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
-
-  <!-- Main JS File -->
   <script src="assets/js/main.js"></script>
 
 </body>

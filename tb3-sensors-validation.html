@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>TurtleBot3 Sensors Validation</title>
+
+  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/css/main.css" rel="stylesheet">
+</head>
+
+<body>
+
+<header class="header d-flex align-items-center sticky-top">
+  <div class="container-fluid d-flex justify-content-between">
+    <a href="index.html"><h1>Home</h1></a>
+  </div>
+</header>
+
+<main class="main">
+
+<div class="container mt-4">
+
+
+  <h1>TurtleBot3 Sensors Validation</h1>  
+  <p>
+    <a href="https://github.com/johnnyjvang/tb3_sensors_validation" target="_blank">
+      View Full Project on GitHub
+    </a>
+  </p>
+
+  <p>
+    A ROS 2 (Jazzy) validation suite designed to systematically verify sensor reliability,
+    motion accuracy, and data consistency on TurtleBot3 before using SLAM, Nav2, or autonomy stacks.
+  </p>
+
+
+  <!-- HERO IMAGE -->
+  <img src="https://raw.githubusercontent.com/johnnyjvang/tb3_sensors_validation/refs/heads/main/docs/tb3_robot.png"
+       class="img-fluid mb-4">
+
+  <h2>Project Overview</h2>
+  <p>
+    This project was built to answer a critical robotics question:
+    <strong>"Is the robot actually behaving correctly at the sensor and motion level?"</strong>
+  </p>
+
+  <p>
+    Rather than debugging SLAM or navigation blindly, I developed a structured validation suite
+    to isolate and verify each subsystem — LiDAR, IMU, and odometry — independently and in combination.
+  </p>
+
+  <p>
+    The result is a reusable ROS 2 testing framework that provides measurable confidence in the robot’s
+    sensing and motion pipeline before moving into higher-level autonomy.
+  </p>
+
+  <h2>What Was Built</h2>
+
+  <ul>
+    <li>ROS 2 Python validation nodes for LiDAR, IMU, and odometry</li>
+    <li>Automated test suite runnable via a single launch file</li>
+    <li>Structured output system for test results and summaries</li>
+    <li>Visual validation using plots, logs, and motion-based GIFs</li>
+    <li>Reusable framework for debugging robotic systems</li>
+  </ul>
+
+  <h2>Validation Coverage</h2>
+
+  <h4>Message Timing</h4>
+  <p>Ensured stable and consistent publishing rates across critical topics.</p>
+
+  <img src="https://raw.githubusercontent.com/johnnyjvang/tb3_sensors_validation/refs/heads/main/docs/message_rate_check.png"
+       class="img-fluid mb-4">
+
+  <h4>Odometry Validation</h4>
+  <ul>
+    <li>Stationary drift measurement</li>
+    <li>Forward/backward distance accuracy</li>
+    <li>Rotation accuracy</li>
+    <li>Out-and-back closure error</li>
+  </ul>
+
+  <img src="https://raw.githubusercontent.com/johnnyjvang/tb3_sensors_validation/refs/heads/main/docs/odom_out_and_back.gif"
+       class="img-fluid mb-4">
+
+  <h4>IMU Validation</h4>
+  <ul>
+    <li>Gyro bias detection</li>
+    <li>Accelerometer noise characterization</li>
+    <li>Yaw drift over time</li>
+    <li>Rotation response validation</li>
+    <li>IMU vs odometry agreement</li>
+  </ul>
+
+  <img src="https://raw.githubusercontent.com/johnnyjvang/tb3_sensors_validation/refs/heads/main/docs/imu_odom_agreement.gif"
+       class="img-fluid mb-4">
+
+  <h4>LiDAR Validation</h4>
+  <ul>
+    <li>Valid scan range percentage</li>
+    <li>Stationary noise behavior</li>
+    <li>Front obstacle detection accuracy</li>
+    <li>Nearby object stability over time</li>
+  </ul>
+
+  <img src="https://raw.githubusercontent.com/johnnyjvang/tb3_sensors_validation/refs/heads/main/docs/lidar_nearby_object_stability.gif"
+       class="img-fluid mb-4">
+
+  <h2>System Pipeline Understanding</h2>
+
+  <pre>
+LiDAR → /scan → obstacle detection + validation
+IMU   → /imu  → bias, noise, orientation tracking
+Odom  → /odom → motion estimation + drift analysis
+
+cmd_vel → robot motion → evaluated by IMU + Odom + LiDAR
+  </pre>
+
+  <h2>Key Engineering Insights</h2>
+
+  <ul>
+    <li>Sensor validation must be done before SLAM — otherwise debugging becomes misleading</li>
+    <li>Odometry drift and IMU bias can silently break navigation systems</li>
+    <li>Message timing consistency is critical for synchronization across subsystems</li>
+    <li>Comparing IMU and odometry provides a powerful cross-validation signal</li>
+    <li>Simulation behaves differently than real hardware (noise, slip, latency)</li>
+  </ul>
+
+  <h2>What I Learned</h2>
+
+  <ul>
+    <li>How to design structured validation frameworks for robotics systems</li>
+    <li>How to debug distributed ROS 2 systems using topic-level analysis</li>
+    <li>How sensor noise and bias propagate into higher-level failures</li>
+    <li>How to quantify robot performance instead of relying on visual inspection</li>
+    <li>How to build reusable test pipelines for system verification</li>
+  </ul>
+
+  <h2>Why This Matters</h2>
+
+  <p>
+    Robotics failures are often blamed on SLAM or planning, but the root cause is frequently
+    lower-level sensor or motion inaccuracies.
+  </p>
+
+  <p>
+    This project ensures that the robot has a reliable foundation before introducing
+    complex autonomy stacks like Nav2, AMCL, or Cartographer.
+  </p>
+
+  <h2>GitHub Repository</h2>
+
+  <p>
+    <a href="https://github.com/johnnyjvang/tb3_sensors_validation" target="_blank">
+      View Full Project on GitHub
+    </a>
+  </p>
+
+
+</div>
+
+</main>
+
+</body>
+</html>

@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>TurtleBot3 Base Validation | Johnny J. Vang</title>
+  <meta name="description" content="TurtleBot3 Base Validation project details by Johnny J. Vang.">
+  <meta name="keywords" content="TurtleBot3, ROS2, base validation, odometry, mobile robots">
+
+  <!-- Favicons -->
+  <link href="assets/img/favicon.png" rel="icon">
+  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="assets/vendor/aos/aos.css" rel="stylesheet">
+  <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+  <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+
+  <!-- Main CSS File -->
+  <link href="assets/css/main.css" rel="stylesheet">
+</head>
+
+<body class="portfolio-details-page">
+
+  <header id="header" class="header d-flex align-items-center sticky-top">
+    <div class="container-fluid position-relative d-flex align-items-center justify-content-between">
+      <a href="index.html" class="logo d-flex align-items-center">
+        <h1 class="sitename">Home</h1>
+      </a>
+
+      <nav id="navmenu" class="navmenu">
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+        <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+      </nav>
+    </div>
+  </header>
+
+  <main class="main">
+
+    <!-- Page Title -->
+    <div class="page-title light-background">
+      <div class="container">
+        <h1>TurtleBot3 Base Validation</h1>
+        <nav class="breadcrumbs">
+          <ol>
+            <li><a href="index.html">Home</a></li>
+            <li class="current">Portfolio Details</li>
+          </ol>
+        </nav>
+      </div>
+    </div><!-- End Page Title -->
+
+    <!-- Portfolio Details Section -->
+    <section id="portfolio-details" class="portfolio-details section">
+      <div class="container" data-aos="fade-up" data-aos-delay="100">
+
+        <div class="row gy-4">
+
+          <div class="col-lg-8">
+            <div class="portfolio-details-slider swiper init-swiper">
+
+              <script type="application/json" class="swiper-config">
+                {
+                  "loop": true,
+                  "speed": 600,
+                  "autoplay": {
+                    "delay": 5000
+                  },
+                  "slidesPerView": "auto",
+                  "pagination": {
+                    "el": ".swiper-pagination",
+                    "type": "bullets",
+                    "clickable": true
+                  }
+                }
+              </script>
+
+              <div class="swiper-wrapper align-items-center">
+
+                <div class="swiper-slide">
+                  <img src="assets/img/portfolio/turtlebot3.png" alt="TurtleBot3 Base Validation">
+                </div>
+
+                <div class="swiper-slide">
+                  <img src="assets/img/portfolio/turtlebot3.png" alt="TurtleBot3 Motion Validation">
+                </div>
+
+              </div>
+              <div class="swiper-pagination"></div>
+            </div>
+          </div>
+
+          <div class="col-lg-4">
+            <div class="portfolio-info" data-aos="fade-up" data-aos-delay="200">
+              <h3>Project information</h3>
+              <ul>
+                <li><strong>Category</strong>: Mobile Robots / ROS2 Validation</li>
+                <li><strong>Platform</strong>: TurtleBot3 Burger</li>
+                <li><strong>Focus</strong>: Base motion and odometry validation</li>
+                <li><strong>Project Type</strong>: ROS2 Python package</li>
+              </ul>
+            </div>
+
+            <div class="portfolio-description" data-aos="fade-up" data-aos-delay="300">
+              <h2>Why I built this package</h2>
+              <p>
+                Before debugging higher-level autonomy systems like Nav2, SLAM, or AMCL,
+                I wanted to verify that the robot’s base motion pipeline was behaving correctly.
+                This package was built to validate the most fundamental mobile robot behaviors:
+                commanded translation, commanded rotation, and odometry-based stopping.
+              </p>
+              <p>
+                The goal was to remove ambiguity early. If the base does not move correctly,
+                then later failures in localization, mapping, or navigation can be misleading.
+                This project gave me a deterministic way to test the differential drive stack
+                before moving on to more complex robotics problems.
+              </p>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="row gy-4 mt-4">
+          <div class="col-lg-12" data-aos="fade-up" data-aos-delay="350">
+            <div class="portfolio-description">
+              <h2>What the package validates</h2>
+              <p>
+                The package directly tests the motion path:
+              </p>
+              <pre><code>/cmd_vel → motor controller → wheels → encoders → /odom</code></pre>
+              <p>
+                It includes six deterministic validation tests:
+              </p>
+
+              <div class="table-responsive">
+                <table class="table table-bordered align-middle">
+                  <thead>
+                    <tr>
+                      <th>Test</th>
+                      <th>Purpose</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td><code>timed_forward</code></td>
+                      <td>Move forward for 3 seconds and measure displacement</td>
+                    </tr>
+                    <tr>
+                      <td><code>timed_back</code></td>
+                      <td>Move backward for 3 seconds and measure displacement</td>
+                    </tr>
+                    <tr>
+                      <td><code>odom_forward</code></td>
+                      <td>Move forward until odometry reports 1 foot (0.3048 m)</td>
+                    </tr>
+                    <tr>
+                      <td><code>odom_back</code></td>
+                      <td>Move backward until odometry reports 1 foot</td>
+                    </tr>
+                    <tr>
+                      <td><code>rotate_ccw</code></td>
+                      <td>Rotate counter-clockwise until about 90°</td>
+                    </tr>
+                    <tr>
+                      <td><code>rotate_cw</code></td>
+                      <td>Rotate clockwise until about 90°</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
+              <h2 class="mt-4">What each test tells me</h2>
+              <p>
+                The timed tests answer a simple but important question:
+                <strong>If I command a velocity for a fixed amount of time, does the robot
+                travel the expected distance?</strong>
+              </p>
+              <p>
+                The odometry-targeted tests go one step further by checking whether odometry
+                can be trusted as a feedback signal to stop at a target distance.
+                The rotation tests validate angular motion behavior and help catch yaw scaling
+                or encoder-related errors before they affect localization and path following.
+              </p>
+
+              <h2 class="mt-4">Why this matters for the autonomy stack</h2>
+              <p>
+                If the base motion system is wrong, higher-level systems will fail regardless
+                of parameter tuning. This directly impacts:
+              </p>
+              <ul>
+                <li>Nav2 path following</li>
+                <li>AMCL localization alignment</li>
+                <li>SLAM map quality</li>
+                <li>costmap behavior</li>
+                <li>collision monitor performance</li>
+              </ul>
+              <p>
+                By validating the base first, I created a clean engineering baseline before
+                moving into sensor validation, TF validation, and localization validation.
+              </p>
+
+              <h2 class="mt-4">Example interpretation</h2>
+              <p>
+                This package helps turn motion debugging into something measurable.
+                For example:
+              </p>
+              <ul>
+                <li><strong>~0.30 m forward in 3 seconds</strong> suggests correct encoder scaling</li>
+                <li><strong>~0.15 m</strong> suggests wheel radius or encoder configuration issues</li>
+                <li><strong>~0.60 m</strong> suggests odometry scaling may be doubled</li>
+                <li><strong>straight command but curved motion</strong> suggests imbalance or configuration error</li>
+                <li><strong>poor 90° rotation accuracy</strong> suggests angular odometry tuning issues</li>
+              </ul>
+
+              <h2 class="mt-4">Takeaway</h2>
+              <p>
+                This project reflects how I approach robotics debugging: start with the lowest
+                reliable layer, validate it with repeatable tests, and then build upward into
+                sensors, transforms, localization, and autonomy. Instead of guessing whether a
+                robot “kind of works,” this package measures whether the base behaves the way it should.
+              </p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section><!-- /Portfolio Details Section -->
+
+  </main>
+
+  <footer id="footer" class="footer light-background">
+    <div class="container">
+      <div class="copyright text-center">
+        <p>© <span>Copyright</span> <strong class="px-1 sitename">Johnny J. Vang</strong> <span>All Rights Reserved</span></p>
+      </div>
+      <div class="social-links d-flex justify-content-center">
+        <a href="#"><i class="bi bi-twitter-x"></i></a>
+        <a href="#"><i class="bi bi-facebook"></i></a>
+        <a href="#"><i class="bi bi-instagram"></i></a>
+        <a href="#"><i class="bi bi-linkedin"></i></a>
+      </div>
+      <div class="credits">
+        Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scroll Top -->
+  <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center">
+    <i class="bi bi-arrow-up-short"></i>
+  </a>
+
+  <!-- Preloader -->
+  <div id="preloader"></div>
+
+  <!-- Vendor JS Files -->
+  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/vendor/php-email-form/validate.js"></script>
+  <script src="assets/vendor/aos/aos.js"></script>
+  <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
+  <script src="assets/vendor/imagesloaded/imagesloaded.pkgd.min.js"></script>
+  <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+  <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
+
+  <!-- Main JS File -->
+  <script src="assets/js/main.js"></script>
+
+</body>
+
+</html>
