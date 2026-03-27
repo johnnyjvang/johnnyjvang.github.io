@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>Labubu Classifier</title>
+
+  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/css/main.css" rel="stylesheet">
+</head>
+
+<body>
+
+<header class="header d-flex align-items-center sticky-top">
+  <div class="container-fluid d-flex justify-content-between">
+    <a href="index.html"><h1>Home</h1></a>
+  </div>
+</header>
+
+<main class="main">
+
+<div class="container mt-4">
+
+  <h1>Labubu Classifier</h1>
+  <p>
+    <a href="https://labubu-classifyer.onrender.com/" target="_blank">
+      Live Application: Labubu Classifier
+    </a>
+  </p>
+
+  <p>
+    A web-based image classification application built with Flask and PyTorch to distinguish
+    authentic Labubu figures from visually similar counterfeit variants using a fine-tuned ResNet18 model.
+  </p>
+
+  <!-- HERO IMAGE -->
+  <img src="https://raw.githubusercontent.com/johnnyjvang/labubu_classifyer/main/static/labubu_homepage.png"
+       class="img-fluid mb-4" alt="Labubu Classifier Homepage">
+
+  <h2>Project Overview</h2>
+  <p>
+    This project was built to explore a practical computer vision problem:
+    <strong>"Can a lightweight deployed model help distinguish authentic collectibles from counterfeit lookalikes?"</strong>
+  </p>
+
+  <p>
+    In this case, the focus was on identifying authentic Labubu figures versus fake variants
+    often referred to by collectors as “Lafufu.”
+  </p>
+
+  <p>
+    The result is a complete end-to-end machine learning project that covers data collection,
+    augmentation, model training, web deployment, and real-time inference through an accessible user interface.
+  </p>
+
+  <h2>What Was Built</h2>
+
+  <ul>
+    <li>Binary image classification model using ResNet18 in PyTorch</li>
+    <li>Flask web application for image upload and prediction</li>
+    <li>Confidence score output for model decisions</li>
+    <li>Deployment pipeline using Render</li>
+    <li>Supporting scripts for dataset collection, augmentation, evaluation, and visualization</li>
+  </ul>
+
+  <h2>Application Demo</h2>
+
+  <h4>Authentic Labubu Prediction</h4>
+  <p>The classifier correctly identifies a Labubu image and returns a confidence score.</p>
+
+  <img src="https://raw.githubusercontent.com/johnnyjvang/labubu_classifyer/main/static/labubu_correct_identifyer.png"
+       class="img-fluid mb-4" alt="Authentic Labubu Prediction">
+
+  <h4>Counterfeit / Not Labubu Prediction</h4>
+  <p>The model also distinguishes fake or non-Labubu images from authentic examples.</p>
+
+  <img src="https://raw.githubusercontent.com/johnnyjvang/labubu_classifyer/main/static/not_labubu_correct_identifyer.png"
+       class="img-fluid mb-4" alt="Not Labubu Prediction">
+
+  <h4>Counterfeit Example</h4>
+  <p>
+    Example of a fake Labubu-style figure used to motivate the real-vs-counterfeit classification task.
+  </p>
+
+  <img src="https://raw.githubusercontent.com/johnnyjvang/labubu_classifyer/main/static/fake_labubu.png"
+       class="img-fluid mb-4" alt="Fake Labubu Example">
+
+  <h4>Rare Variant Example</h4>
+  <p>
+    Additional examples such as rare Labubu variants help show the visual diversity the model may encounter.
+  </p>
+
+  <img src="https://raw.githubusercontent.com/johnnyjvang/labubu_classifyer/main/static/labubu_rare.png"
+       class="img-fluid mb-4" alt="Rare Labubu Example">
+
+  <h2>System Pipeline</h2>
+
+  <pre>
+Image upload → Flask app → preprocessing
+            → ResNet18 inference → softmax probabilities
+            → predicted class + confidence score
+  </pre>
+
+  <h2>Key Engineering Decisions</h2>
+
+  <ul>
+    <li>Used ResNet18 as a lightweight and efficient architecture for binary image classification</li>
+    <li>Built the application in Flask for simple deployment and minimal overhead</li>
+    <li>Used CPU-friendly inference to support low-cost hosted deployment on Render</li>
+    <li>Handled uploaded image preprocessing consistently for real-time predictions</li>
+    <li>Structured the project with separate scripts for training, evaluation, augmentation, and visualization</li>
+  </ul>
+
+  <h2>What I Learned</h2>
+
+  <ul>
+    <li>How to turn a trained computer vision model into a usable web application</li>
+    <li>How to deploy PyTorch inference workflows in a lightweight production setting</li>
+    <li>How dataset quality and augmentation affect binary classification performance</li>
+    <li>How to design a simple interface that makes ML output understandable to users</li>
+    <li>How to debug deployment and image preprocessing issues in a real hosted application</li>
+  </ul>
+
+  <h2>Why This Matters</h2>
+
+  <p>
+    This project demonstrates more than model training alone. It shows the ability to build and deploy
+    an end-to-end machine learning system that connects data, inference, web development, and user interaction.
+  </p>
+
+  <p>
+    It also reflects a practical application of computer vision to real-world authenticity and classification problems.
+  </p>
+
+  <h2>GitHub Repository</h2>
+
+  <p>
+    <a href="https://github.com/johnnyjvang/labubu_classifyer" target="_blank">
+      View Full Project on GitHub
+    </a>
+  </p>
+
+</div>
+
+</main>
+
+</body>
+</html>

@@ -60,9 +60,10 @@
             <div class="col-lg-7 portfolio-info">
               <h3>Hello, I'm Johnny Vang</h3>
               <p>
-                Robotics projects focused on mobile robots, ROS2 validation, sensing,
-                simulation, and practical system debugging.
+                Engineering portfolio showcasing work in robotics, computer vision, and software development, with an emphasis on system validation and real-world applications.
               </p>
+
+
             </div>
             <div class="col-lg-5 text-center text-lg-end">
               <ul class="portfolio-filters isotope-filters" data-aos="fade-up" data-aos-delay="100">
@@ -70,6 +71,8 @@
                 <li data-filter=".filter-mobile">Mobile Robots</li>
                 <li data-filter=".filter-sensor">Sensor Fusion</li>
                 <li data-filter=".filter-hardware">Hardware Testing</li>
+                <li data-filter=".filter-computer-vision">Computer Vision</li>
+                <li data-filter=".filter-web-applications">Web Applications</li>
                 <li data-filter=".filter-ros2">ROS2</li>
               </ul>
             </div>
@@ -141,74 +144,102 @@
 
           <div class="row gy-4 isotope-container" data-aos="fade-up" data-aos-delay="200">
 
-            <!-- Featured Project: TB3 Sensors Validation -->
-            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-mobile filter-sensor filter-ros2">
-              <div class="portfolio-content h-100">
-                <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fe-shop.robotis.co.jp%2Fuploads%2FItems%2Fturtlebot3%2Fturtlebot3_burger_2022_tn1.jpg&f=1&nofb=1&ipt=61a8b65f5c6f3a85152f0b803311ccb914b542af6340ff4b538eba54f91daeba" class="img-fluid" alt="TurtleBot3 Sensors Validation">
-                
-                <div class="portfolio-info">
-                  <h4>TurtleBot3 Sensors Validation</h4>
-                  <p>ROS2 validation suite for odom, IMU, and LiDAR</p>
-                  <div>
-                    <a href="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fe-shop.robotis.co.jp%2Fuploads%2FItems%2Fturtlebot3%2Fturtlebot3_burger_2022_tn1.jpg&f=1&nofb=1&ipt=61a8b65f5c6f3a85152f0b803311ccb914b542af6340ff4b538eba54f91daeba" class="glightbox preview-link">
-                      <i class="bi bi-zoom-in"></i>
-                    </a>
-                    <a href="tb3-sensors-validation.html" class="details-link">
-                      <i class="bi bi-link-45deg"></i>
-                    </a>
-                  </div>
-                </div>
+          <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-mobile filter-sensor filter-ros2">
+            <div class="portfolio-content h-100">
 
-                <div class="p-3">
-                  <h4 class="mb-2">TurtleBot3 Sensors Validation</h4>
-                  <p class="mb-2">
-                    A ROS 2 (Jazzy) validation suite built to verify odometry, IMU, and LiDAR behavior
-                    before running SLAM or Nav2.
-                  </p>
-                  <p class="mb-0 small">
-                    Includes tests for message timing, odom drift and accuracy, IMU bias/noise,
-                    and LiDAR stability and obstacle detection.
-                  </p>
+              <div class="portfolio-img">
+                <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fe-shop.robotis.co.jp%2Fuploads%2FItems%2Fturtlebot3%2Fturtlebot3_burger_2022_tn1.jpg&f=1&nofb=1&ipt=61a8b65f5c6f3a85152f0b803311ccb914b542af6340ff4b538eba54f91daeba" alt="TurtleBot3 Sensors Validation">
+              </div>
 
-                  <div class="mt-2">
-                    <a href="https://github.com/johnnyjvang/tb3_sensors_validation" target="_blank">
-                      GitHub Repository →
-                    </a>
-                  </div>
+              <div class="portfolio-info">
+                <h4>TurtleBot3 Sensors Validation</h4>
+                <p>ROS2 validation suite for odom, IMU, and LiDAR</p>
+                <div>
+                  <a href="tb3-sensors-validation.html" class="details-link">
+                    <i class="bi bi-link-45deg"></i>
+                  </a>
                 </div>
               </div>
-            </div><!-- End Portfolio Item -->
 
-            <!-- Supporting Card -->
-            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-mobile filter-ros2">
-              <div class="portfolio-content h-100">
-                <img src="assets/img/portfolio/lidar.png" class="img-fluid" alt="Sensor Validation Workflow">
-                <div class="portfolio-info">
-                  <h4>Sensor Validation Workflow</h4>
-                  <p>Health-checking the sensing and motion stack before autonomy</p>
-                  <div>
-                    <a href="assets/img/portfolio/lidar.png"
-                       title="Sensor Validation Workflow"
-                       data-gallery="portfolio-gallery-sensor"
-                       class="glightbox preview-link">
-                      <i class="bi bi-zoom-in"></i>
-                    </a>
-                    <a href="tb3-sensors-validation.html" title="More Details" class="details-link">
-                      <i class="bi bi-link-45deg"></i>
-                    </a>
-                  </div>
-                </div>
+              <div class="p-3">
+                <h4 class="mb-2">TurtleBot3 Sensors Validation</h4>
+                <p class="mb-2">
+                  A ROS 2 (Jazzy) validation suite built to verify odometry, IMU, and LiDAR behavior
+                  before running SLAM or Nav2.
+                </p>
+                <p class="mb-0 small">
+                  Includes tests for message timing, odom drift and accuracy, IMU bias/noise,
+                  and LiDAR stability and obstacle detection.
+                </p>
+              </div>
 
-                <div class="p-3">
-                  <h4 class="mb-2">Why This Project Matters</h4>
-                  <p class="mb-0">
-                    The package was built as a practical pre-SLAM and pre-Nav2 health check to verify
-                    stable topic timing, reasonable odom behavior, acceptable IMU characteristics,
-                    and usable LiDAR measurements before debugging higher-level autonomy. :contentReference[oaicite:2]{index=2}
-                  </p>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-computer-vision filter-web-applications">
+            <div class="portfolio-content h-100">
+
+              <div class="portfolio-img">
+                <img src="https://raw.githubusercontent.com/johnnyjvang/labubu_classifyer/main/static/labubu_rare.png" alt="Labubu Classifier">
+              </div>
+
+              <div class="portfolio-info">
+                <h4>Labubu Classifier</h4>
+                <p>PyTorch image classifier for authentic vs counterfeit Labubu detection</p>
+                <div>
+                  <a href="labubu-classifier.html" class="details-link">
+                    <i class="bi bi-link-45deg"></i>
+                  </a>
                 </div>
               </div>
-            </div><!-- End Portfolio Item -->
+
+              <div class="p-3">
+                <h4 class="mb-2">Labubu Classifier</h4>
+                <p class="mb-2">
+                  A Flask and PyTorch web application built to classify uploaded images as
+                  authentic Labubu or not.
+                </p>
+                <p class="mb-0 small">
+                  Uses a fine-tuned ResNet18 model for binary image classification, with a lightweight
+                  deployment on Render and a simple real-time inference interface.
+                </p>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- Hmonglish -->
+          <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-web-applications">
+            <div class="portfolio-content h-100">
+
+              <div class="portfolio-img">
+                <img src="https://raw.githubusercontent.com/johnnyjvang/hmonglish/main/public/homepage.png" alt="Hmonglish">
+              </div>
+
+              <div class="portfolio-info">
+                <h4>Hmonglish</h4>
+                <p>Interactive web app for learning basic Hmong vocabulary</p>
+                <div>
+                  <a href="hmonglish.html" class="details-link">
+                    <i class="bi bi-link-45deg"></i>
+                  </a>
+                </div>
+              </div>
+
+              <div class="p-3">
+                <h4 class="mb-2">Hmonglish</h4>
+                <p class="mb-2">
+                  A vocabulary-learning web application built with HTML, CSS, and vanilla JavaScript
+                  to help users study beginner Hmong words through interactive flashcards.
+                </p>
+                <p class="mb-0 small">
+                  Includes category-based lessons, keyboard shortcuts, swipe navigation, a shuffle mode,
+                  and a toggle between White Hmong and Green Hmong.
+                </p>
+              </div>
+
+            </div>
+          </div>
 
             <!-- Supporting Card -->
             <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-sensor filter-hardware filter-ros2">
