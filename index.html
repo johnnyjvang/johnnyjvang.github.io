@@ -78,69 +78,7 @@
             </div>
           </div>
 
-          <div class="row mb-5">
-            <div class="col-lg-12">
-              <div class="p-4 border rounded-4">
-                <h2 class="mb-3">Projects</h2>
-                <div class="row g-4">
-                  <div class="col-md-3">
-                    <h5>Sensor Fusion</h5>
-                    <ul class="mb-0">
-                      <li>LiDAR</li>
-                      <li>Camera</li>
-                      <li>IMU</li>
-                      <li>Radar</li>
-                    </ul>
-                  </div>
-                  <div class="col-md-3">
-                    <h5>Mobile Robots</h5>
-                    <ul class="mb-0">
-                      <li>Nav2</li>
-                      <li>SLAM</li>
-                      <li>Gazebo</li>
-                      <li>Mapping</li>
-                    </ul>
-                  </div>
-                  <div class="col-md-3">
-                    <h5>Embedded / Controls</h5>
-                    <ul class="mb-0">
-                      <li>Raspberry Pi</li>
-                      <li>Arduino</li>
-                      <li>ros2_control</li>
-                      <li>PID Control</li>
-                    </ul>
-                  </div>
-                  <div class="col-md-3">
-                    <h5>Validation</h5>
-                    <ul class="mb-0">
-                      <li>Base Motion</li>
-                      <li>Sensors</li>
-                      <li>TF</li>
-                      <li>Localization</li>
-                    </ul>
-                  </div>
-                </div>
-
-                <hr class="my-4">
-
-                <div class="row g-3">
-                  <div class="col-lg-6">
-                    <p class="mb-1"><strong>GitHub</strong></p>
-                    <p class="mb-0">
-                      <a href="https://github.com/johnnyjvang/tb3_sensors_validation" target="_blank" rel="noopener noreferrer">
-                        tb3_sensors_validation
-                      </a>
-                    </p>
-                  </div>
-                  <div class="col-lg-6">
-                    <p class="mb-1"><strong>Featured Project</strong></p>
-                    <p class="mb-0">TurtleBot3 sensor and odometry validation suite built in ROS 2 Jazzy.</p>
-                  </div>
-                </div>
-
-              </div>
-            </div>
-          </div>
+          
 
           <div class="row gy-4 isotope-container" data-aos="fade-up" data-aos-delay="200">
 
@@ -170,6 +108,38 @@
                 <p class="mb-0 small">
                   Includes tests for message timing, odom drift and accuracy, IMU bias/noise,
                   and LiDAR stability and obstacle detection.
+                </p>
+              </div>
+
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-mobile filter-hardware filter-ros2">
+            <div class="portfolio-content h-100">
+
+              <div class="portfolio-img">
+                <img src="assets/img/tb3-motor-debug-cover.png" alt="TurtleBot3 Motor Installation Debugging">
+              </div>
+
+              <div class="portfolio-info">
+                <h4>TurtleBot3 Motor Debugging Case Study</h4>
+                <p>Root cause analysis of SLAM failure caused by incorrect Dynamixel motor placement</p>
+                <div>
+                  <a href="tb3-motor-debugging-case-study.html" class="details-link">
+                    <i class="bi bi-link-45deg"></i>
+                  </a>
+                </div>
+              </div>
+
+              <div class="p-3">
+                <h4 class="mb-2">TurtleBot3 Motor Debugging Case Study</h4>
+                <p class="mb-2">
+                  A robotics debugging case study showing how failed SLAM, localization instability,
+                  and incorrect motion behavior were traced back to improperly installed Dynamixel motors.
+                </p>
+                <p class="mb-0 small">
+                  Highlights system validation across odometry, IMU, LiDAR, TF, and AMCL, ending in
+                  a mechanical root-cause fix by swapping the motor positions on the chassis.
                 </p>
               </div>
 

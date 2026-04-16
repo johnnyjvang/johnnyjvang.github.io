@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>TurtleBot3 Motor Debugging Case Study</title>
+
+  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/css/main.css" rel="stylesheet">
+</head>
+
+<body>
+
+<header class="header d-flex align-items-center sticky-top">
+  <div class="container-fluid d-flex justify-content-between">
+    <a href="index.html"><h1>Home</h1></a>
+  </div>
+</header>
+
+<main class="main">
+
+<div class="container mt-4">
+
+  <h1>TurtleBot3 Motor Debugging Case Study</h1>
+
+
+
+  <p>
+    This case study documents how I debugged a TurtleBot3 bring-up issue where SLAM and localization
+    appeared broken, but the root cause was ultimately a mechanical installation problem.
+  </p>
+
+  <img src="assets/img/tb3-motor-debug-cover.png"
+       class="img-fluid mb-4"
+       alt="TurtleBot3 motor debugging case study cover">
+
+  <h2>Project Overview</h2>
+  <p>
+    While working on TurtleBot3 bring-up in ROS 2 Jazzy, I was trying to get SLAM and localization
+    working reliably. The robot could move, but the system behavior did not look correct in RViz.
+    At first, the symptoms looked like a localization, map alignment, or TF issue.
+  </p>
+
+  <p>
+    Instead of assuming it was just a software problem, I tried to document what I was seeing,
+    validate each subsystem, and use those observations to narrow down the root cause.
+  </p>
+
+  <h2>Main Symptoms Observed</h2>
+  <ul>
+    <li>Map and robot orientation looked inconsistent in RViz</li>
+    <li>Pose estimation did not line up with what the robot was actually doing</li>
+    <li>When I tried reversing the pose estimate direction, the map overlay appeared to improve</li>
+    <li>The robot's physical motion behavior suggested the drivetrain configuration might be wrong</li>
+    <li>SLAM and localization reliability could not be trusted until the lower-level issue was resolved</li>
+  </ul>
+
+  <h2>What I Documented in RViz</h2>
+  <p>
+    One of the first major clues came from RViz during localization and Nav2 bring-up.
+    After pose estimation, the map appeared to be rotated about 180 degrees from what I expected.
+    It did not match the original orientation correctly, which suggested that something fundamental
+    was off in the robot’s motion or localization assumptions.
+  </p>
+
+  <img src="assets/img/rviz_map_flipped.png"
+       class="img-fluid mb-4"
+       alt="RViz map appearing flipped during TurtleBot3 debugging">
+
+  <p>
+    My observation at the time was:
+  </p>
+
+  <blockquote class="blockquote">
+    <p class="mb-0">
+      “After pose estimation, it looks to have the map be 180 of the original, it does not match,
+      or something is off.”
+    </p>
+  </blockquote>
+
+  <h2>Testing the Opposite 2D Pose Direction</h2>
+  <p>
+    To learn more, I tried setting the 2D pose estimate in the opposite direction to see how the
+    map overlay would respond. Interestingly, when I pointed the estimate in the opposite direction,
+    the map appeared to line up better.
+  </p>
+
+  <p>
+    That was a strong sign that the robot’s internal understanding of its orientation and motion
+    did not match reality.
+  </p>
+
+  <img src="assets/img/rviz_corrected_pointing_wrong_direction.png"
+       class="img-fluid mb-4"
+       alt="RViz map corrected when 2D pose was pointed in the wrong direction">
+
+  <p>
+    What I documented from this test:
+  </p>
+
+  <blockquote class="blockquote">
+    <p class="mb-2">
+      “When I set the 2d pose estimation in the opposite direction the map matches.”
+    </p>
+    <p class="mb-2">
+      “When I do it where it’s actually facing, direction of the lidar, it’s not working.”
+    </p>
+    <p class="mb-0">
+      “When I make it move in the opposite direction, it actually goes straight because it thinks
+      it’s in that direction??”
+    </p>
+  </blockquote>
+
+  <p>
+    This was one of the most important observations in the debugging process. It suggested that the
+    issue was not just a bad initial pose in RViz, but that the robot’s physical motion and its
+    expected frame behavior were effectively fighting each other.
+  </p>
+
+  <h2>TF Frame Validation</h2>
+  <p>
+    To make sure the system was not failing because of a missing transform or a broken TF tree,
+    I also checked the TurtleBot3 TF frames. This was part of ruling out whether the issue was
+    coming from an obvious frame connectivity problem.
+  </p>
+
+  <img src="assets/img/turtlebot3_tf_frame.png"
+       class="img-fluid mb-4"
+       alt="TurtleBot3 TF frame diagram">
+
+  <p>
+    The TF frame check helped confirm that the major frame components were present, so the issue
+    was less likely to be caused by a completely missing transform and more likely related to how
+    the robot was actually moving relative to the expected coordinate frame.
+  </p>
+
+  <h2>Debugging Approach</h2>
+  <p>
+    I treated this as a system debugging problem and tried to work from the bottom up rather than
+    over-tuning high-level software.
+  </p>
+
+  <ul>
+    <li>Observed commanded motion versus physical robot motion</li>
+    <li>Validated odometry behavior and directional consistency</li>
+    <li>Checked LiDAR and localization behavior in RViz</li>
+    <li>Reviewed TF structure to verify major frame relationships</li>
+    <li>Compared what the software expected against what the robot was physically doing</li>
+  </ul>
+
+  <h2>Root Cause</h2>
+  <p>
+    The root cause turned out to be mechanical: the Dynamixel motors were installed on the wrong
+    sides of the TurtleBot3 chassis.
+  </p>
+
+  <ul>
+    <li>Left and right motor positions were swapped</li>
+    <li>The robot's motion behavior no longer matched the expected drivetrain model</li>
+    <li>This mismatch propagated upward into odometry, localization, and SLAM behavior</li>
+  </ul>
+
+  <p>
+    In other words, what looked like a mapping or localization issue was actually caused by the
+    robot being assembled incorrectly at the hardware level.
+  </p>
+
+  <h2>The Fix</h2>
+  <p>
+    The solution was not a TF change, not a Nav2 parameter tweak, and not a LiDAR issue.
+    I fixed the problem by physically swapping the motor locations to their correct sides on
+    the TurtleBot3 chassis.
+  </p>
+
+  <p>
+    After correcting the motor placement, the robot’s movement aligned properly with the expected
+    ROS 2 coordinate behavior, and SLAM began working correctly.
+  </p>
+
+  <h2>Results</h2>
+  <ul>
+    <li>Robot motion direction matched command intent correctly</li>
+    <li>RViz behavior made more sense relative to the robot’s actual pose</li>
+    <li>SLAM worked after correcting the motor installation</li>
+    <li>The debugging process confirmed the issue was hardware-related, not just software-related</li>
+  </ul>
+
+  <h2>Before vs After</h2>
+  <div class="table-responsive mb-4">
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>Category</th>
+          <th>Before Fix</th>
+          <th>After Fix</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Map Alignment in RViz</td>
+          <td>Looked flipped or inconsistent</td>
+          <td>Aligned more naturally with robot motion</td>
+        </tr>
+        <tr>
+          <td>2D Pose Estimation Behavior</td>
+          <td>Worked better when pointed in the wrong direction</td>
+          <td>Worked correctly when set to the true direction</td>
+        </tr>
+        <tr>
+          <td>Motion Direction</td>
+          <td>Confusing and inconsistent with expectations</td>
+          <td>Matched commanded and expected behavior</td>
+        </tr>
+        <tr>
+          <td>SLAM</td>
+          <td>Unreliable</td>
+          <td>Functional after hardware correction</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2>What I Learned</h2>
+  <ul>
+    <li>Documenting unusual behavior in RViz can reveal the real failure pattern</li>
+    <li>Not every SLAM or localization issue starts in software</li>
+    <li>A drivetrain installation error can affect the full ROS 2 stack</li>
+    <li>TF checks are useful for ruling out missing-frame problems during debugging</li>
+    <li>Good robotics debugging means comparing physical behavior against software assumptions</li>
+  </ul>
+
+  <h2>Why This Project Matters</h2>
+  <p>
+    This case study shows how I approach robotics debugging as an engineering problem: observe,
+    validate, isolate, and fix the actual root cause. Rather than blindly adjusting software,
+    I worked through the system behavior and traced the issue back to a hardware integration problem.
+  </p>
+
+  <p>
+    It highlights practical skills in robot bring-up, ROS 2 debugging, SLAM troubleshooting,
+    frame validation, and hardware-software integration.
+  </p>
+
+  <p>
+    <a href="https://github.com/johnnyjvang" target="_blank">
+      View More Robotics Work on GitHub
+    </a>
+  </p>
+
+</div>
+
+</main>
+
+</body>
+</html>
