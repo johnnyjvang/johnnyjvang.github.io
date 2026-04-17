@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>DIY Differential Drive Robot</title>
+
+  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/css/main.css" rel="stylesheet">
+</head>
+
+<body>
+
+<header class="header d-flex align-items-center sticky-top">
+  <div class="container-fluid d-flex justify-content-between">
+    <a href="index.html"><h1>Home</h1></a>
+  </div>
+</header>
+
+<main class="main">
+
+<div class="container mt-4">
+
+  <h1>DIY Differential Drive Robot</h1>
+  <p>
+    <a href="https://github.com/johnnyjvang/arduino_project_2025" target="_blank">
+      View Arduino Motor / Encoder Code on GitHub
+    </a>
+    <br>
+    <a href="https://github.com/johnnyjvang/ubuntu_22_04_workspace" target="_blank">
+      View Computer Vision / ArUco / Camera Calibration Code on GitHub
+    </a>
+  </p>
+
+  <p>
+    An in-progress custom robot platform built from individual components to better understand
+    low-level motor control, encoder feedback, calibration, and future ROS 2 integration.
+  </p>
+
+  <!-- HERO IMAGE -->
+  <img src="assets/img/portfolio/motor_wiring.jpg"
+       class="img-fluid mb-4"
+       alt="DIY robot wiring diagram">
+
+  <h2>Project Overview</h2>
+  <p>
+    This project started as a way to build a robot from the ground up rather than relying on a fully
+    assembled platform. The main goal has been to understand how each subsystem works at a lower level:
+    Arduino motor control, DC motor behavior, encoder pulse counting, calibration, and hardware-to-software communication.
+  </p>
+
+  <p>
+    Instead of only focusing on the final robot, I have been developing the project in stages. That has included
+    gathering the hardware, building wiring diagrams, testing individual motors, validating encoders in both directions,
+    and creating a computer vision-based method to measure wheel rotation independently.
+  </p>
+
+  <p>
+    The long-term goal is to connect this system to a Raspberry Pi, move the project into ROS 2, and create the ROS 2
+    drivers and nodes needed to make the robot operate as a complete mobile robotics platform.
+  </p>
+
+  <h2>What Was Built</h2>
+
+  <ul>
+    <li>Arduino-based DC motor control for a differential drive robot platform</li>
+    <li>Encoder pulse counting and direction validation for clockwise and counterclockwise motion</li>
+    <li>Single-motor and multi-motor testing workflows</li>
+    <li>Time-based and pulse-based encoder calibration experiments</li>
+    <li>OpenCV + ArUco optical encoder validation workflow using a webcam</li>
+    <li>Camera calibration pipeline using a 9x6 checkerboard grid</li>
+    <li>Wiring schematic for Arduino, L298N motor driver, motors, encoders, breadboard, and power supply</li>
+  </ul>
+
+  <h2>Hardware Used</h2>
+
+  <ul>
+    <li>Arduino Uno</li>
+    <li>Two 12V DC motors with encoders</li>
+    <li>L298N motor controller (dual H-bridge motor driver)</li>
+    <li>12V DC power supply</li>
+    <li>Large breadboard</li>
+    <li>Webcam for optical tracking</li>
+    <li>Custom-built motor test rig</li>
+  </ul>
+
+  <h2>Motor Control and Wiring</h2>
+
+  <p>
+    The drivetrain is based around two DC motors controlled through an L298N motor controller. The project uses
+    PWM for speed control and dedicated Arduino pins for motor direction control.
+  </p>
+
+  <pre>
+Motor A → OUT1, OUT2
+Motor B → OUT3, OUT4
+
+IN1, IN2 → Arduino pins 7 and 8
+IN3, IN4 → Arduino pins 4 and 5
+ENA, ENB → Arduino pins 9 and 10
+  </pre>
+
+  <p>
+    I also created a full wiring schematic for the larger robot setup that includes two motors, one motor driver,
+    one Arduino Uno, one large breadboard, and a 12V DC power supply. The schematic also shows where the encoder
+    wires connect back to the Arduino.
+  </p>
+
+  <img src="assets/img/diy-robot-wiring-diagram.png"
+       class="img-fluid mb-4"
+       alt="DIY robot full wiring schematic">
+
+  <h2>Encoder Testing</h2>
+
+  <p>
+    A major part of the project has been understanding how to read encoder pulses accurately and how those pulse counts
+    relate to real wheel rotation. I tested encoder behavior by running the motors at different speeds and checking how
+    many encoder counts were generated over time.
+  </p>
+
+  <p>
+    I also explored what baud rate was needed to monitor encoder values reliably over serial output while the motor was running.
+    This was useful for understanding whether the observed counts were stable, whether pulses were being missed, and how readable
+    the data stream was during live testing.
+  </p>
+
+  <p>
+    For early debugging, I simplified the setup to a single motor and encoder test configuration:
+  </p>
+
+  <pre>
+Black (GND) → Arduino GND
+Blue (VCC)  → 5V
+Yellow (A)  → Arduino pin 2
+Green (B)   → Arduino pin 3
+  </pre>
+
+  <p>
+    In this setup, the encoder channels were used to test pulse counting, determine wheel direction, and validate behavior
+    for both clockwise and counterclockwise motion.
+  </p>
+
+  <h2>Encoder Calibration</h2>
+
+  <p>
+    I explored different ways to calibrate the encoders and estimate pulses per revolution. One method was to continuously
+    run the motor and count pulses until reaching a target value such as 360 counts, then compare that result to the physical
+    amount of wheel rotation observed.
+  </p>
+
+  <p>
+    Another method was time-based calibration, where the motor is run for a fixed amount of time at a known speed or PWM value
+    and the resulting encoder counts are compared across repeated tests. This helped with understanding repeatability and the
+    relationship between commanded motor output and measured encoder feedback.
+  </p>
+
+  <h2>Optical Encoder Validation with ArUco</h2>
+
+  <p>
+    To create an independent validation method, I built a test rig that mounted the motor and wheel in a way that could be tracked
+    by a webcam. I attached an ArUco marker to the rotating system and used OpenCV to detect and estimate its pose in real time.
+  </p>
+
+  <p>
+    The final Python script:
+  </p>
+
+  <ul>
+    <li>Generates and detects a custom ArUco marker with ID 0</li>
+    <li>Tracks the marker pose in real time using a webcam</li>
+    <li>Calculates X, Y, and Z marker position</li>
+    <li>Calculates marker rotation angle in degrees</li>
+    <li>Keeps running totals for clockwise and counterclockwise rotation</li>
+    <li>Allows reset of the totals with the spacebar</li>
+    <li>Allows the program to quit with q</li>
+  </ul>
+
+  <p>
+    This optical validation approach gave me a second way to estimate wheel rotation outside of the encoder readings themselves.
+    That made it useful for cross-checking whether the encoder measurements matched actual physical motion.
+  </p>
+
+  <img src="assets/img/diy-robot-aruco-test.png"
+       class="img-fluid mb-4"
+       alt="ArUco optical encoder validation">
+
+  <h2>Camera Calibration</h2>
+
+  <p>
+    Since the optical tracking depends on accurate pose estimation, I calibrated the webcam using a standard checkerboard workflow
+    with a 9x6 corner grid. This process produced the camera matrix and distortion coefficients used in the ArUco tracking code.
+  </p>
+
+  <p>
+    I also generated calibration visuals showing the original image, the undistorted image, and a difference heatmap to verify
+    that the correction was working properly.
+  </p>
+
+  <img src="assets/img/diy-robot-camera-calibration.png"
+       class="img-fluid mb-4"
+       alt="Camera calibration results">
+
+  <h2>Code Repositories</h2>
+
+  <h4>Arduino Control and Encoder Testing</h4>
+  <p>
+    The Arduino-side code is stored in:
+    <a href="https://github.com/johnnyjvang/arduino_project_2025" target="_blank">
+      arduino_project_2025
+    </a>
+  </p>
+
+  <p>
+    This repository includes work related to:
+  </p>
+
+  <ul>
+    <li>Single motor testing</li>
+    <li>Encoder tuning</li>
+    <li>General Arduino DC motor control</li>
+    <li>PID control and testing experiments</li>
+  </ul>
+
+  <h4>Computer Vision and Calibration</h4>
+  <p>
+    The computer vision and calibration code is stored in:
+    <a href="https://github.com/johnnyjvang/ubuntu_22_04_workspace" target="_blank">
+      ubuntu_22_04_workspace
+    </a>
+  </p>
+
+  <p>
+    This workspace includes:
+  </p>
+
+  <ul>
+    <li>ArUco tag generation</li>
+    <li>Optical encoder tracking code</li>
+    <li>Camera calibration code</li>
+    <li>Supporting scripts for computer vision-based validation</li>
+  </ul>
+
+  <h2>System Pipeline Understanding</h2>
+
+  <pre>
+Arduino Uno → L298N motor driver → DC motors
+DC motors → encoder pulses → Arduino interrupt handling
+Webcam → OpenCV / ArUco tracking → optical rotation measurement
+
+Future:
+Arduino + sensors → Raspberry Pi → ROS 2 nodes / drivers → full robot system
+  </pre>
+
+  <h2>Key Engineering Insights</h2>
+
+  <ul>
+    <li>Low-cost robot hardware still requires careful validation before higher-level autonomy is possible</li>
+    <li>Encoder pulse counts are only useful if they can be tied back to real physical wheel rotation</li>
+    <li>Testing one subsystem at a time makes debugging much easier than trying to assemble everything at once</li>
+    <li>Computer vision can be used as a practical external reference for encoder validation</li>
+    <li>Hardware-to-software communication is not automatic and must be designed intentionally</li>
+  </ul>
+
+  <h2>What I Learned</h2>
+
+  <ul>
+    <li>How to wire and control DC motors through an Arduino and motor driver</li>
+    <li>How to read encoder pulses and reason about direction and counts</li>
+    <li>How to approach encoder calibration through both direct and indirect methods</li>
+    <li>How to use camera calibration and ArUco pose estimation for robotics measurement tasks</li>
+    <li>How to break a larger robotics project into smaller validation steps before integration</li>
+  </ul>
+
+  <h2>Current Status</h2>
+
+  <p>
+    This project is still in progress. I have gathered most of the hardware, built and tested several parts of the system,
+    and created working code for motor control, encoder testing, optical validation, and camera calibration.
+  </p>
+
+  <p>
+    The full robot is not yet assembled into its final form, and I have since taken apart parts of the hardware setup after testing.
+    Even so, the project already reflects meaningful engineering work because it documents the development process, debugging approach,
+    and validation methods used to build toward a complete mobile robot.
+  </p>
+
+  <h2>Next Steps</h2>
+
+  <ul>
+    <li>Rebuild the physical robot platform</li>
+    <li>Validate both motors and encoders together under the same workflow</li>
+    <li>Connect the Arduino system to a Raspberry Pi</li>
+    <li>Create ROS 2 drivers and nodes for command and feedback</li>
+    <li>Use encoder feedback as a foundation for odometry and higher-level robotics software</li>
+  </ul>
+
+  <h2>Why This Matters</h2>
+
+  <p>
+    This project shows the kind of robotics work that happens before autonomy demos, navigation stacks, or polished final robots.
+    It focuses on the foundational engineering required to make a custom robot actually measurable, debuggable, and extensible.
+  </p>
+
+  <p>
+    By working through encoder behavior, motor control, wiring, optical validation, and camera calibration first, I am building the
+    lower-level understanding needed to later integrate the system into ROS 2 and scale it into a more complete robotics platform.
+  </p>
+
+  <h2>GitHub Repositories</h2>
+
+  <p>
+    <a href="https://github.com/johnnyjvang/arduino_project_2025" target="_blank">
+      Arduino Project Repository
+    </a>
+    <br>
+    <a href="https://github.com/johnnyjvang/ubuntu_22_04_workspace" target="_blank">
+      Ubuntu 22.04 Workspace Repository
+    </a>
+  </p>
+
+</div>
+
+</main>
+
+</body>
+</html>

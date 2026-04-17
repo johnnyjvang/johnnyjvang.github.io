@@ -211,35 +211,40 @@
             </div>
           </div>
 
-            <!-- Supporting Card -->
-            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-sensor filter-hardware filter-ros2">
-              <div class="portfolio-content h-100">
-                <img src="assets/img/portfolio/motor_wiring.jpg" class="img-fluid" alt="Validation and Debugging">
-                <div class="portfolio-info">
-                  <h4>Validation and Debugging</h4>
-                  <p>Practical system testing for mobile robot bring-up</p>
-                  <div>
-                    <a href="assets/img/portfolio/motor_wiring.jpg"
-                       title="Validation and Debugging"
-                       data-gallery="portfolio-gallery-hardware"
-                       class="glightbox preview-link">
-                      <i class="bi bi-zoom-in"></i>
-                    </a>
-                    <a href="tb3-sensors-validation.html" title="More Details" class="details-link">
-                      <i class="bi bi-link-45deg"></i>
-                    </a>
-                  </div>
-                </div>
+          <!-- DIY Robot -->
+          <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-robotics">
+            <div class="portfolio-content h-100">
 
-                <div class="p-3">
-                  <h4 class="mb-2">What It Tests</h4>
-                  <p class="mb-0">
-                    Includes 15 validation scripts spanning message rate checks, odom motion and drift,
-                    IMU bias/noise/yaw checks, and LiDAR validity and obstacle stability tests.
-                  </p>
+              <div class="portfolio-img">
+                <img src="assets/img/portfolio/motor_wiring.jpg" alt="DIY Robot">
+              </div>
+
+              <div class="portfolio-info">
+                <h4>DIY Differential Drive Robot</h4>
+                <p>Arduino-based robot with encoders, motor control, and optical validation</p>
+                <div>
+                  <a href="diy-robot-project.html" class="details-link">
+                    <i class="bi bi-link-45deg"></i>
+                  </a>
                 </div>
               </div>
-            </div><!-- End Portfolio Item -->
+
+              <div class="p-3">
+                <h4 class="mb-2">DIY Differential Drive Robot</h4>
+                <p class="mb-2">
+                  A custom-built robot platform using an Arduino Uno, DC motors with encoders,
+                  and an L298N motor driver to explore low-level motor control and feedback systems.
+                </p>
+                <p class="mb-0 small">
+                  Includes encoder pulse tracking, time-based calibration, and an OpenCV + ArUco
+                  optical system to validate wheel rotation before future ROS 2 integration.
+                </p>
+              </div>
+
+            </div>
+          </div>
+
+
 
           </div><!-- End Portfolio Container -->
 
