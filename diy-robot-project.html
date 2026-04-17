@@ -22,15 +22,6 @@
 <div class="container mt-4">
 
   <h1>DIY Differential Drive Robot</h1>
-  <p>
-    <a href="https://github.com/johnnyjvang/arduino_project_2025" target="_blank">
-      View Arduino Motor / Encoder Code on GitHub
-    </a>
-    <br>
-    <a href="https://github.com/johnnyjvang/ubuntu_22_04_workspace" target="_blank">
-      View Computer Vision / ArUco / Camera Calibration Code on GitHub
-    </a>
-  </p>
 
   <p>
     An in-progress custom robot platform built from individual components to better understand
@@ -38,7 +29,7 @@
   </p>
 
   <!-- HERO IMAGE -->
-  <img src="assets/img/portfolio/motor_wiring.jpg"
+  <img src="assets/img/updated_ros2_exploded_robot.png"
        class="img-fluid mb-4"
        alt="DIY robot wiring diagram">
 
@@ -106,9 +97,13 @@ ENA, ENB → Arduino pins 9 and 10
     wires connect back to the Arduino.
   </p>
 
-  <img src="assets/img/diy-robot-wiring-diagram.png"
+  <img src="assets/img/portfolio/motor_wiring.jpg"
        class="img-fluid mb-4"
        alt="DIY robot full wiring schematic">
+
+  <img src="assets/img/motor_wire_assembly.png"
+       class="img-fluid mb-4"
+       alt="ArUco optical encoder validation">
 
   <h2>Encoder Testing</h2>
 
@@ -180,7 +175,21 @@ Green (B)   → Arduino pin 3
     That made it useful for cross-checking whether the encoder measurements matched actual physical motion.
   </p>
 
-  <img src="assets/img/diy-robot-aruco-test.png"
+  <div class="row g-4 mb-4">
+    <div class="col-12 col-lg-6">
+      <img src="assets/img/motor_mount_snipped.png"
+           class="img-fluid w-100"
+           alt="ArUco optical encoder validation">
+    </div>
+
+    <div class="col-12 col-lg-6">
+      <img src="assets/img/arcuo_close_up.jpeg"
+           class="img-fluid w-100"
+           alt="ArUco optical encoder validation">
+    </div>
+  </div>
+  
+  <img src="assets/img/aruco_output.gif"
        class="img-fluid mb-4"
        alt="ArUco optical encoder validation">
 
@@ -196,7 +205,7 @@ Green (B)   → Arduino pin 3
     that the correction was working properly.
   </p>
 
-  <img src="assets/img/diy-robot-camera-calibration.png"
+  <img src="assets/img/camera_calibration_output.png"
        class="img-fluid mb-4"
        alt="Camera calibration results">
 
