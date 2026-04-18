@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="utf-8">
-  <title>Eye Health Blink Detection</title>
+  <title>DIY Differential Drive Robot</title>
 
   <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
   <link href="assets/css/main.css" rel="stylesheet">
@@ -21,176 +21,309 @@
 
 <div class="container mt-4">
 
-  <h1>Eye Health Blink Detection</h1>
+  <h1>DIY Differential Drive Robot</h1>
 
   <p>
-    An in-progress computer vision project focused on tracking eye blinks in real time to better
-    understand blink frequency during screen use and explore ways to support eye health awareness.
+    An in-progress custom robot platform built from individual components to better understand
+    low-level motor control, encoder feedback, calibration, and future ROS 2 integration.
   </p>
 
-  <!-- HERO IMAGES -->
-  <div class="row justify-content-center g-3 mb-4">
-    <div class="col-md-6 text-center">
-      <img src="assets/img/eye_health_screenshot.jpg"
-           class="img-fluid"
-           alt="Eye blink detection interface"
-           style="max-width: 500px;">
-    </div>
-
-    <div class="col-md-6 text-center">
-      <img src="assets/img/output_eye.gif"
-           class="img-fluid"
-           alt="Eye blink detection demo"
-           style="max-width: 500px;">
-    </div>
-  </div>
+  <!-- HERO IMAGE -->
+  <img src="assets/img/updated_ros2_exploded_robot.png"
+       class="img-fluid mb-4"
+       alt="DIY robot wiring diagram">
 
   <h2>Project Overview</h2>
   <p>
-    This project started as a way to explore how computer vision could be used to monitor blink
-    behavior during extended periods of screen use. Reduced blink frequency is commonly associated
-    with eye strain, so the goal was to build a system that could measure this behavior in real time
-    rather than relying on subjective observation.
+    This project started as a way to build a robot from the ground up rather than relying on a fully
+    assembled platform. The main goal has been to understand how each subsystem works at a lower level:
+    Arduino motor control, DC motor behavior, encoder pulse counting, calibration, and hardware-to-software communication.
   </p>
 
   <p>
-    The current implementation detects facial landmarks, calculates eye openness using the Eye
-    Aspect Ratio (EAR), and tracks blink events continuously. The system also groups blink counts
-    into time intervals and records the data for later analysis.
+    Instead of only focusing on the final robot, I have been developing the project in stages. That has included
+    gathering the hardware, building wiring diagrams, testing individual motors, validating encoders in both directions,
+    and creating a computer vision-based method to measure wheel rotation independently.
   </p>
 
   <p>
-    While the core blink detection approach is based on established methods using OpenCV and dlib,
-    this project focuses on extending that foundation into a practical monitoring tool with time-based
-    tracking, visualization, and future user-facing features.
+    The long-term goal is to connect this system to a Raspberry Pi, move the project into ROS 2, and create the ROS 2
+    drivers and nodes needed to make the robot operate as a complete mobile robotics platform.
   </p>
 
   <h2>What Was Built</h2>
+
   <ul>
-    <li>Real-time eye blink detection using facial landmark tracking</li>
-    <li>Eye Aspect Ratio (EAR) calculation to identify blink events</li>
-    <li>Support for both webcam input and prerecorded video input</li>
-    <li>Blink counting over 20-second time intervals</li>
-    <li>Rolling average calculation to monitor blink trends</li>
-    <li>Automatic CSV export with timestamped session data</li>
-    <li>Live visualization of blink counts using Matplotlib</li>
+    <li>Arduino-based DC motor control for a differential drive robot platform</li>
+    <li>Encoder pulse counting and direction validation for clockwise and counterclockwise motion</li>
+    <li>Single-motor and multi-motor testing workflows</li>
+    <li>Time-based and pulse-based encoder calibration experiments</li>
+    <li>OpenCV + ArUco optical encoder validation workflow using a webcam</li>
+    <li>Camera calibration pipeline using a 9x6 checkerboard grid</li>
+    <li>Wiring schematic for Arduino, L298N motor driver, motors, encoders, breadboard, and power supply</li>
   </ul>
 
-  <h2>How It Works</h2>
-  <p>
-    The system uses dlib’s facial landmark detector to locate key points around both eyes.
-    From these landmarks, the Eye Aspect Ratio (EAR) is calculated for each frame as a measure
-    of how open or closed the eyes are.
-  </p>
+  <h2>Hardware Used</h2>
+
+  <ul>
+    <li>Arduino Uno</li>
+    <li>Two 12V DC motors with encoders</li>
+    <li>L298N motor controller (dual H-bridge motor driver)</li>
+    <li>12V DC power supply</li>
+    <li>Large breadboard</li>
+    <li>Webcam for optical tracking</li>
+    <li>Custom-built motor test rig</li>
+  </ul>
+
+  <h2>Motor Control and Wiring</h2>
 
   <p>
-    When the EAR drops below a defined threshold for a small number of consecutive frames,
-    the system registers a blink event. This helps distinguish actual blinks from noise or
-    small eye movements.
+    The drivetrain is based around two DC motors controlled through an L298N motor controller. The project uses
+    PWM for speed control and dedicated Arduino pins for motor direction control.
   </p>
-
-  <p>
-    Blink counts are grouped into 20-second intervals, and a rolling average is maintained
-    to track changes over time. The system displays these metrics in real time and saves them
-    to a CSV file for later analysis.
-  </p>
-
-  <h2>System Pipeline</h2>
 
   <pre>
-Webcam / Video Input → OpenCV Frame Processing
-→ dlib Facial Landmark Detection
-→ Eye Aspect Ratio (EAR) Calculation
-→ Blink Detection Logic
-→ 20-second Interval Aggregation
-→ Rolling Average Calculation
-→ CSV Export + Live Plotting
+Motor A → OUT1, OUT2
+Motor B → OUT3, OUT4
+
+IN1, IN2 → Arduino pins 7 and 8
+IN3, IN4 → Arduino pins 4 and 5
+ENA, ENB → Arduino pins 9 and 10
   </pre>
 
-  <h2>Why This Project Matters</h2>
   <p>
-    Many computer vision projects focus on detection alone, but this project explores how that
-    detection can be turned into meaningful behavioral data. Blink frequency is a simple signal,
-    but tracking it over time creates an opportunity to better understand patterns related to
-    fatigue, focus, and prolonged screen use.
+    I also created a full wiring schematic for the larger robot setup that includes two motors, one motor driver,
+    one Arduino Uno, one large breadboard, and a 12V DC power supply. The schematic also shows where the encoder
+    wires connect back to the Arduino.
+  </p>
+
+  <img src="assets/img/portfolio/motor_wiring.jpg"
+       class="img-fluid mb-4"
+       alt="DIY robot full wiring schematic">
+
+  <img src="assets/img/motor_wire_assembly.png"
+       class="img-fluid mb-4"
+       alt="ArUco optical encoder validation">
+
+  <h2>Encoder Testing</h2>
+
+  <p>
+    A major part of the project has been understanding how to read encoder pulses accurately and how those pulse counts
+    relate to real wheel rotation. I tested encoder behavior by running the motors at different speeds and checking how
+    many encoder counts were generated over time.
   </p>
 
   <p>
-    This project also demonstrates how lightweight computer vision systems can be used for
-    real-world monitoring applications rather than just one-time inference tasks.
-  </p>
-
-  <h2>Current Status</h2>
-  <p>
-    The blink detection pipeline is working and capable of tracking real-time eye activity,
-    estimating blink counts, and saving results for later analysis. The system also includes
-    basic visualization of blink trends during runtime.
+    I also explored what baud rate was needed to monitor encoder values reliably over serial output while the motor was running.
+    This was useful for understanding whether the observed counts were stable, whether pulses were being missed, and how readable
+    the data stream was during live testing.
   </p>
 
   <p>
-    The project is still in progress, particularly in terms of user interface design,
-    long-session analysis, and overall usability.
+    For early debugging, I simplified the setup to a single motor and encoder test configuration:
   </p>
 
-  <h2>Next Steps</h2>
+  <pre>
+Black (GND) → Arduino GND
+Blue (VCC)  → 5V
+Yellow (A)  → Arduino pin 2
+Green (B)   → Arduino pin 3
+  </pre>
+
+  <p>
+    In this setup, the encoder channels were used to test pulse counting, determine wheel direction, and validate behavior
+    for both clockwise and counterclockwise motion.
+  </p>
+
+  <h2>Encoder Calibration</h2>
+
+  <p>
+    I explored different ways to calibrate the encoders and estimate pulses per revolution. One method was to continuously
+    run the motor and count pulses until reaching a target value such as 360 counts, then compare that result to the physical
+    amount of wheel rotation observed.
+  </p>
+
+  <p>
+    Another method was time-based calibration, where the motor is run for a fixed amount of time at a known speed or PWM value
+    and the resulting encoder counts are compared across repeated tests. This helped with understanding repeatability and the
+    relationship between commanded motor output and measured encoder feedback.
+  </p>
+
+  <h2>Optical Encoder Validation with ArUco</h2>
+
+  <p>
+    To create an independent validation method, I built a test rig that mounted the motor and wheel in a way that could be tracked
+    by a webcam. I attached an ArUco marker to the rotating system and used OpenCV to detect and estimate its pose in real time.
+  </p>
+
+  <p>
+    The final Python script:
+  </p>
+
   <ul>
-    <li>Improve webcam-based usability for everyday monitoring</li>
-    <li>Design a cleaner and more intuitive user interface</li>
-    <li>Add threshold-based alerts when blink rate drops too low</li>
-    <li>Generate clearer graphs showing blink frequency over time</li>
-    <li>Track blink behavior across different activities (coding, reading, gaming)</li>
-    <li>Analyze how time of day or fatigue impacts blink frequency</li>
-    <li>Develop a session summary with averages and trend insights</li>
+    <li>Generates and detects a custom ArUco marker with ID 0</li>
+    <li>Tracks the marker pose in real time using a webcam</li>
+    <li>Calculates X, Y, and Z marker position</li>
+    <li>Calculates marker rotation angle in degrees</li>
+    <li>Keeps running totals for clockwise and counterclockwise rotation</li>
+    <li>Allows reset of the totals with the spacebar</li>
+    <li>Allows the program to quit with q</li>
   </ul>
 
-  <h2>Potential Future Ideas</h2>
+  <p>
+    This optical validation approach gave me a second way to estimate wheel rotation outside of the encoder readings themselves.
+    That made it useful for cross-checking whether the encoder measurements matched actual physical motion.
+  </p>
+
+  <div class="row g-4 mb-4">
+    <div class="col-12 col-lg-6">
+      <img src="assets/img/motor_mount_snipped.png"
+           class="img-fluid w-100"
+           alt="ArUco optical encoder validation">
+    </div>
+
+    <div class="col-12 col-lg-6">
+      <img src="assets/img/arcuo_close_up.jpeg"
+           class="img-fluid w-100"
+           alt="ArUco optical encoder validation">
+    </div>
+  </div>
+  
+  <img src="assets/img/aruco_output.gif"
+       class="img-fluid mb-4"
+       alt="ArUco optical encoder validation">
+
+  <h2>Camera Calibration</h2>
+
+  <p>
+    Since the optical tracking depends on accurate pose estimation, I calibrated the webcam using a standard checkerboard workflow
+    with a 9x6 corner grid. This process produced the camera matrix and distortion coefficients used in the ArUco tracking code.
+  </p>
+
+  <p>
+    I also generated calibration visuals showing the original image, the undistorted image, and a difference heatmap to verify
+    that the correction was working properly.
+  </p>
+
+  <img src="assets/img/camera_calibration_output.png"
+       class="img-fluid mb-4"
+       alt="Camera calibration results">
+
+  <h2>Code Repositories</h2>
+
+  <h4>Arduino Control and Encoder Testing</h4>
+  <p>
+    The Arduino-side code is stored in:
+    <a href="https://github.com/johnnyjvang/arduino_project_2025" target="_blank">
+      arduino_project_2025
+    </a>
+  </p>
+
+  <p>
+    This repository includes work related to:
+  </p>
+
   <ul>
-    <li>Dashboard-style interface for long-term blink tracking</li>
-    <li>Real-time visual or notification-based eye strain alerts</li>
-    <li>Multi-session comparison across days</li>
-    <li>Integration with lightweight desktop or web UI</li>
-    <li>Overlay live graphs directly within the camera feed</li>
-    <li>Exportable reports with charts and summary statistics</li>
+    <li>Single motor testing</li>
+    <li>Encoder tuning</li>
+    <li>General Arduino DC motor control</li>
+    <li>PID control and testing experiments</li>
+  </ul>
+
+  <h4>Computer Vision and Calibration</h4>
+  <p>
+    The computer vision and calibration code is stored in:
+    <a href="https://github.com/johnnyjvang/ubuntu_22_04_workspace" target="_blank">
+      ubuntu_22_04_workspace
+    </a>
+  </p>
+
+  <p>
+    This workspace includes:
+  </p>
+
+  <ul>
+    <li>ArUco tag generation</li>
+    <li>Optical encoder tracking code</li>
+    <li>Camera calibration code</li>
+    <li>Supporting scripts for computer vision-based validation</li>
+  </ul>
+
+  <h2>System Pipeline Understanding</h2>
+
+  <pre>
+Arduino Uno → L298N motor driver → DC motors
+DC motors → encoder pulses → Arduino interrupt handling
+Webcam → OpenCV / ArUco tracking → optical rotation measurement
+
+Future:
+Arduino + sensors → Raspberry Pi → ROS 2 nodes / drivers → full robot system
+  </pre>
+
+  <h2>Key Engineering Insights</h2>
+
+  <ul>
+    <li>Low-cost robot hardware still requires careful validation before higher-level autonomy is possible</li>
+    <li>Encoder pulse counts are only useful if they can be tied back to real physical wheel rotation</li>
+    <li>Testing one subsystem at a time makes debugging much easier than trying to assemble everything at once</li>
+    <li>Computer vision can be used as a practical external reference for encoder validation</li>
+    <li>Hardware-to-software communication is not automatic and must be designed intentionally</li>
   </ul>
 
   <h2>What I Learned</h2>
+
   <ul>
-    <li>How facial landmark detection can be used for behavioral tracking</li>
-    <li>How EAR provides a simple but effective blink detection signal</li>
-    <li>How to structure real-time data collection and interval-based analysis</li>
-    <li>How to combine computer vision with logging and visualization tools</li>
-    <li>How early prototypes can evolve into more complete monitoring systems</li>
+    <li>How to wire and control DC motors through an Arduino and motor driver</li>
+    <li>How to read encoder pulses and reason about direction and counts</li>
+    <li>How to approach encoder calibration through both direct and indirect methods</li>
+    <li>How to use camera calibration and ArUco pose estimation for robotics measurement tasks</li>
+    <li>How to break a larger robotics project into smaller validation steps before integration</li>
   </ul>
 
-  <h2>References</h2>
+  <h2>Current Status</h2>
 
   <p>
-    This project builds on existing work in eye blink detection using OpenCV and dlib.
-    The following resources were used to understand and implement the core approach:
+    This project is still in progress. I have gathered most of the hardware, built and tested several parts of the system,
+    and created working code for motor control, encoder testing, optical validation, and camera calibration.
   </p>
 
+  <p>
+    The full robot is not yet assembled into its final form, and I have since taken apart parts of the hardware setup after testing.
+    Even so, the project already reflects meaningful engineering work because it documents the development process, debugging approach,
+    and validation methods used to build toward a complete mobile robot.
+  </p>
+
+  <h2>Next Steps</h2>
+
   <ul>
-    <li>
-      <a href="https://github.com/rmenoli/Eye-blinking-SVM" target="_blank">
-        Eye-blinking-SVM
-      </a>
-    </li>
-    <li>
-      <a href="https://pyimagesearch.com/2017/04/24/eye-blink-detection-opencv-python-dlib/" target="_blank">
-        PyImageSearch – Eye Blink Detection with OpenCV and dlib
-      </a>
-    </li>
-    <li>
-      <a href="https://github.com/Practical-CV/EYE-BLINK-DETECTION-WITH-OPENCV-AND-DLIB" target="_blank">
-        Practical-CV Eye Blink Detection
-      </a>
-    </li>
+    <li>Rebuild the physical robot platform</li>
+    <li>Validate both motors and encoders together under the same workflow</li>
+    <li>Connect the Arduino system to a Raspberry Pi</li>
+    <li>Create ROS 2 drivers and nodes for command and feedback</li>
+    <li>Use encoder feedback as a foundation for odometry and higher-level robotics software</li>
   </ul>
 
-  <h2>GitHub Repository</h2>
+  <h2>Why This Matters</h2>
+
   <p>
-    <a href="https://github.com/johnnyjvang/eye_health" target="_blank">
-      Eye Health Blink Detection Repository
+    This project shows the kind of robotics work that happens before autonomy demos, navigation stacks, or polished final robots.
+    It focuses on the foundational engineering required to make a custom robot actually measurable, debuggable, and extensible.
+  </p>
+
+  <p>
+    By working through encoder behavior, motor control, wiring, optical validation, and camera calibration first, I am building the
+    lower-level understanding needed to later integrate the system into ROS 2 and scale it into a more complete robotics platform.
+  </p>
+
+  <h2>GitHub Repositories</h2>
+
+  <p>
+    <a href="https://github.com/johnnyjvang/arduino_project_2025" target="_blank">
+      Arduino Project Repository
+    </a>
+    <br>
+    <a href="https://github.com/johnnyjvang/ubuntu_22_04_workspace" target="_blank">
+      Ubuntu 22.04 Workspace Repository
     </a>
   </p>
 

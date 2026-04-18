@@ -24,186 +24,150 @@
   <h1>Eye Health Blink Detection</h1>
 
   <p>
-    <a href="https://github.com/johnnyjvang/eye_health" target="_blank">
-      View Project on GitHub
-    </a>
+    An in-progress computer vision project focused on tracking eye blinks in real time to better
+    understand blink frequency during screen use and explore ways to support eye health awareness.
   </p>
 
-  <p>
-    A computer vision project built to track eye blinks in real time using a webcam, with the goal of
-    monitoring blink frequency and encouraging healthier screen habits. I created this because I noticed
-    my eyes often became red during long computer sessions and suspected that reduced blinking might be
-    part of the cause.
-  </p>
+  <!-- HERO IMAGES -->
+  <div class="row justify-content-center g-3 mb-4">
+    <div class="col-md-6 text-center">
+      <img src="assets/img/eye_health_screenshot.jpg"
+           class="img-fluid"
+           alt="Eye blink detection interface"
+           style="max-width: 500px;">
+    </div>
 
-  
-<div class="row justify-content-center">
-
-  <div class="col-md-6 text-center mb-3">
-    <img src="assets/img/eye_health_screenshot.jpg"
-         class="img-fluid"
-         alt="Eye blink detection screenshot"
-         style="max-width: 500px;">
+    <div class="col-md-6 text-center">
+      <img src="assets/img/output_eye.gif"
+           class="img-fluid"
+           alt="Eye blink detection demo"
+           style="max-width: 500px;">
+    </div>
   </div>
-
-  <div class="col-md-6 text-center mb-3">
-    <img src="assets/img/output_eye.gif"
-         class="img-fluid"
-         alt="Eye blink detection demo"
-         style="max-width: 500px;">
-  </div>
-
-</div>
 
   <h2>Project Overview</h2>
-
   <p>
-    This project uses facial landmark detection to identify the eyes, calculate the Eye Aspect Ratio (EAR),
-    and determine when a blink occurs. The program works in real time using either a webcam or a video file.
+    This project started as a way to explore how computer vision could be used to monitor blink
+    behavior during extended periods of screen use. Reduced blink frequency is commonly associated
+    with eye strain, so the goal was to build a system that could measure this behavior in real time
+    rather than relying on subjective observation.
   </p>
 
   <p>
-    In addition to detecting individual blinks, the system tracks blink frequency over time, logs blink counts
-    in 20-second intervals, saves those results to CSV files, and shows a live plot for quick monitoring.
-    The broader idea behind the project was to develop a tool that could eventually warn me when my blink
-    rate becomes too low and suggest blinking more often or taking a break from the screen.
-  </p>
-
-  <h2>Problem Motivation</h2>
-
-  <p>
-    I wanted to explore whether computer vision could be used as a practical personal health monitoring tool.
-    Since my eyes sometimes get red after extended computer use, I thought a useful first step would be to
-    measure how often I blink during focused screen time.
+    The current implementation detects facial landmarks, calculates eye openness using the Eye
+    Aspect Ratio (EAR), and tracks blink events continuously. The system also groups blink counts
+    into time intervals and records the data for later analysis.
   </p>
 
   <p>
-    The concept was simple: if the system can estimate the number of blinks per minute, then over time it
-    could be used to identify periods of reduced blinking and provide reminders to blink more or rest the eyes.
-    This made the project both a technical exercise in real-time vision and a practical experiment tied to
-    everyday health habits.
+    While the core blink detection approach is based on established methods using OpenCV and dlib,
+    this project focuses on extending that foundation into a practical monitoring tool with time-based
+    tracking, visualization, and future user-facing features.
   </p>
+
+  <h2>What Was Built</h2>
+  <ul>
+    <li>Real-time eye blink detection using facial landmark tracking</li>
+    <li>Eye Aspect Ratio (EAR) calculation to identify blink events</li>
+    <li>Support for both webcam input and prerecorded video input</li>
+    <li>Blink counting over 20-second time intervals</li>
+    <li>Rolling average calculation to monitor blink trends</li>
+    <li>Automatic CSV export with timestamped session data</li>
+    <li>Live visualization of blink counts using Matplotlib</li>
+  </ul>
 
   <h2>How It Works</h2>
-
   <p>
-    The program uses dlib's 68-point facial landmark detector to locate the eyes in each frame. From the eye
-    landmarks, it calculates the Eye Aspect Ratio (EAR), which measures how open or closed the eye appears.
-    When the EAR drops below a threshold for a short period, the event is counted as a blink.
+    The system uses dlib’s facial landmark detector to locate key points around both eyes.
+    From these landmarks, the Eye Aspect Ratio (EAR) is calculated for each frame as a measure
+    of how open or closed the eyes are.
   </p>
 
   <p>
-    The script continuously processes video frames, updates blink counts, records interval statistics, and
-    visualizes blink activity over time.
+    When the EAR drops below a defined threshold for a small number of consecutive frames,
+    the system registers a blink event. This helps distinguish actual blinks from noise or
+    small eye movements.
   </p>
 
-  <h2>Core Features</h2>
-
-  <ul>
-    <li>Real-time eye blink detection from a webcam</li>
-    <li>Support for prerecorded video input</li>
-    <li>Eye Aspect Ratio (EAR) calculation using facial landmarks</li>
-    <li>Blink counting over rolling 20-second intervals</li>
-    <li>Rolling average analysis for blink frequency trends</li>
-    <li>Automatic CSV export of blink interval data</li>
-    <li>Live blink frequency visualization with Matplotlib</li>
-  </ul>
+  <p>
+    Blink counts are grouped into 20-second intervals, and a rolling average is maintained
+    to track changes over time. The system displays these metrics in real time and saves them
+    to a CSV file for later analysis.
+  </p>
 
   <h2>System Pipeline</h2>
 
   <pre>
-Webcam / video input
-→ face detection
-→ facial landmark detection
-→ eye landmark extraction
-→ Eye Aspect Ratio (EAR) calculation
-→ blink event detection
-→ interval logging and rolling averages
-→ CSV output + live visualization
+Webcam / Video Input → OpenCV Frame Processing
+→ dlib Facial Landmark Detection
+→ Eye Aspect Ratio (EAR) Calculation
+→ Blink Detection Logic
+→ 20-second Interval Aggregation
+→ Rolling Average Calculation
+→ CSV Export + Live Plotting
   </pre>
-
-  <h2>Technologies Used</h2>
-
-  <ul>
-    <li>Python 3</li>
-    <li>dlib</li>
-    <li>OpenCV</li>
-    <li>NumPy</li>
-    <li>SciPy</li>
-    <li>Imutils</li>
-    <li>Matplotlib</li>
-    <li>Seaborn</li>
-  </ul>
-
-  <h2>Installation</h2>
-
-  <pre>
-pip install dlib opencv-python numpy imutils scipy matplotlib seaborn
-  </pre>
-
-  <h2>How to Run</h2>
-
-  <p><strong>Webcam input:</strong></p>
-  <pre>
-python3 blink_detection_final.py --shape-predictor shape_predictor_68_face_landmarks.dat --camera 0
-  </pre>
-
-  <p><strong>Video file input:</strong></p>
-  <pre>
-python3 blink_detection_final.py --shape-predictor shape_predictor_68_face_landmarks.dat --video path_to_video.mp4
-  </pre>
-
-  <h2>Program Output</h2>
-
-  <ul>
-    <li>A live detection window with blink status and EAR-based statistics</li>
-    <li>Blink counts recorded every 20 seconds</li>
-    <li>Rolling average trend visualization</li>
-    <li>Timestamped CSV files saved to <code>/saved_csv</code></li>
-  </ul>
 
   <h2>Why This Project Matters</h2>
-
   <p>
-    This project shows how computer vision can be applied to more than robotics or object detection. It can
-    also be used to measure small human behaviors in real time and turn them into useful feedback. In this case,
-    the focus was on eye blink frequency as a possible indicator of screen-related eye strain.
+    Many computer vision projects focus on detection alone, but this project explores how that
+    detection can be turned into meaningful behavioral data. Blink frequency is a simple signal,
+    but tracking it over time creates an opportunity to better understand patterns related to
+    fatigue, focus, and prolonged screen use.
   </p>
 
   <p>
-    It also demonstrates practical work in face landmark tracking, signal thresholding, time-series logging,
-    visualization, and designing a system around a real personal use case instead of only a textbook example.
+    This project also demonstrates how lightweight computer vision systems can be used for
+    real-world monitoring applications rather than just one-time inference tasks.
   </p>
 
-  <h2>Future Improvements</h2>
+  <h2>Current Status</h2>
+  <p>
+    The blink detection pipeline is working and capable of tracking real-time eye activity,
+    estimating blink counts, and saving results for later analysis. The system also includes
+    basic visualization of blink trends during runtime.
+  </p>
 
+  <p>
+    The project is still in progress, particularly in terms of user interface design,
+    long-session analysis, and overall usability.
+  </p>
+
+  <h2>Next Steps</h2>
   <ul>
-    <li>Track blinks per minute directly instead of only 20-second intervals</li>
-    <li>Add a warning when blink rate drops below a chosen threshold</li>
-    <li>Prompt the user to blink more or take a break</li>
-    <li>Build a more polished UI for long-term use</li>
-    <li>Store longer-term blink trends for personal monitoring</li>
+    <li>Improve webcam-based usability for everyday monitoring</li>
+    <li>Design a cleaner and more intuitive user interface</li>
+    <li>Add threshold-based alerts when blink rate drops too low</li>
+    <li>Generate clearer graphs showing blink frequency over time</li>
+    <li>Track blink behavior across different activities (coding, reading, gaming)</li>
+    <li>Analyze how time of day or fatigue impacts blink frequency</li>
+    <li>Develop a session summary with averages and trend insights</li>
+  </ul>
+
+  <h2>Potential Future Ideas</h2>
+  <ul>
+    <li>Dashboard-style interface for long-term blink tracking</li>
+    <li>Real-time visual or notification-based eye strain alerts</li>
+    <li>Multi-session comparison across days</li>
+    <li>Integration with lightweight desktop or web UI</li>
+    <li>Overlay live graphs directly within the camera feed</li>
+    <li>Exportable reports with charts and summary statistics</li>
   </ul>
 
   <h2>What I Learned</h2>
-
   <ul>
-    <li>How to use dlib facial landmarks for eye region tracking</li>
-    <li>How EAR can be used to estimate blink events</li>
-    <li>How to process video streams in real time with OpenCV</li>
-    <li>How to log time-based metrics into CSV files for later analysis</li>
-    <li>How to connect computer vision outputs to a health-focused monitoring idea</li>
+    <li>How facial landmark detection can be used for behavioral tracking</li>
+    <li>How EAR provides a simple but effective blink detection signal</li>
+    <li>How to structure real-time data collection and interval-based analysis</li>
+    <li>How to combine computer vision with logging and visualization tools</li>
+    <li>How early prototypes can evolve into more complete monitoring systems</li>
   </ul>
 
-  <h2>Repository</h2>
+  <h2>References</h2>
 
   <p>
-    <a href="https://github.com/johnnyjvang/eye_health" target="_blank">
-      Eye Health GitHub Repository
-    </a>
+    This project builds on existing work in eye blink detection using OpenCV and dlib.
+    The following resources were used to understand and implement the core approach:
   </p>
-
-  <h2>References</h2>
 
   <ul>
     <li>
@@ -213,7 +177,7 @@ python3 blink_detection_final.py --shape-predictor shape_predictor_68_face_landm
     </li>
     <li>
       <a href="https://pyimagesearch.com/2017/04/24/eye-blink-detection-opencv-python-dlib/" target="_blank">
-        Eye Blink Detection with OpenCV, Python, and dlib
+        PyImageSearch – Eye Blink Detection with OpenCV and dlib
       </a>
     </li>
     <li>
@@ -222,6 +186,13 @@ python3 blink_detection_final.py --shape-predictor shape_predictor_68_face_landm
       </a>
     </li>
   </ul>
+
+  <h2>GitHub Repository</h2>
+  <p>
+    <a href="https://github.com/johnnyjvang/eye_health" target="_blank">
+      Eye Health Blink Detection Repository
+    </a>
+  </p>
 
 </div>
 
