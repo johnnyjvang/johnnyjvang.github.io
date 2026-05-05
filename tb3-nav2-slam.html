@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>TurtleBot3 Nav2 SLAM and ArUco Tracking</title>
+
+  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/css/main.css" rel="stylesheet">
+</head>
+
+<body>
+
+<header class="header d-flex align-items-center sticky-top">
+  <div class="container-fluid d-flex justify-content-between">
+    <a href="index.html"><h1>Home</h1></a>
+  </div>
+</header>
+
+<main class="main">
+
+<div class="container mt-4">
+
+  <h1>TurtleBot3 Nav2 SLAM and ArUco Tracking</h1>
+
+  <p>
+    <a href="https://github.com/johnnyjvang/tb3_nav2_slam" target="_blank">
+      View Full Project on GitHub
+    </a>
+  </p>
+
+  <p>
+    A ROS 2 (Jazzy) mobile robotics project focused on TurtleBot3 navigation,
+    autonomous exploration, multi-robot simulation, and camera-based robot following
+    using ArUco markers.
+  </p>
+
+  <!-- HERO GIF -->
+  <img src="https://raw.githubusercontent.com/johnnyjvang/tb3_nav2_slam/main/img/aruco_follower.gif"
+       class="img-fluid mb-4"
+       alt="TurtleBot3 ArUco follower demo">
+
+  <h2>Project Overview</h2>
+
+  <p>
+    This project was built as a hands-on testbed for learning and validating applied
+    mobile robotics workflows using TurtleBot3, ROS 2, Nav2, Gazebo, and OpenCV.
+  </p>
+
+  <p>
+    The project combines autonomous navigation experiments with perception-based robot
+    tracking. It includes timer-based patrol exploration, random safe goal exploration,
+    two-robot Gazebo simulation, ArUco marker detection, marker pose tracking, and
+    closed-loop robot-following behavior.
+  </p>
+
+  <h2>What Was Built</h2>
+
+  <ul>
+    <li>ROS 2 Python nodes for Nav2 goal navigation and exploration</li>
+    <li>Timer-based patrol exploration with saved map output</li>
+    <li>Random safe goal exploration for autonomous movement testing</li>
+    <li>Custom two-TurtleBot3 Gazebo simulation setup</li>
+    <li>ArUco marker detection using an RGB camera</li>
+    <li>ArUco pose tracking with robot-friendly coordinate conversion</li>
+    <li>Closed-loop follower node for visual robot following</li>
+  </ul>
+
+  <h2>Timer-Based Patrol Explorer</h2>
+
+  <p>
+    The timer-based patrol explorer sends Nav2 goals at timed intervals so the robot
+    can patrol and explore a mapped environment.
+  </p>
+
+  <!-- GIF -->
+  <img src="https://raw.githubusercontent.com/johnnyjvang/tb3_nav2_slam/main/img/timer_based_patrol_explorer.gif"
+       class="img-fluid mb-4"
+       alt="Timer-based patrol explorer demo">
+
+  <!-- IMAGE (600px, LEFT ALIGNED) -->
+  <img src="https://raw.githubusercontent.com/johnnyjvang/tb3_nav2_slam/main/img/timer_based_patrol_map_20260504_212637.png"
+       class="img-fluid mb-4"
+       style="max-width: 600px;"
+       alt="Timer-based patrol generated map">
+
+  <h4>Exploration Behavior</h4>
+  <ul>
+    <li>Dispatches navigation goals at timed intervals</li>
+    <li>Uses Nav2 to plan and execute paths</li>
+    <li>Tracks completed goal locations</li>
+    <li>Saves a map visualization of visited goals</li>
+  </ul>
+
+  <h2>ArUco-Based Robot Following</h2>
+
+  <p>
+    The ArUco following system demonstrates camera-based robot-to-robot tracking.
+  </p>
+
+  <!-- IMAGE (600px, LEFT ALIGNED) -->
+  <img src="https://raw.githubusercontent.com/johnnyjvang/tb3_nav2_slam/main/img/aruco_detector.png"
+       class="img-fluid mb-4"
+       style="max-width: 600px;"
+       alt="ArUco marker detection output">
+
+  <!-- GIF -->
+  <img src="https://raw.githubusercontent.com/johnnyjvang/tb3_nav2_slam/main/img/aruco_follower.gif"
+       class="img-fluid mb-4"
+       alt="ArUco follower robot tracking demo">
+
+  <h4>Perception to Control Pipeline</h4>
+
+  <pre>
+Camera → ArUco Detection → Pose Estimation → Pose Topic → Follower Controller → cmd_vel
+  </pre>
+
+  <h4>Following Behavior</h4>
+  <ul>
+    <li>Moves forward when the target is far</li>
+    <li>Rotates toward the target when off-center</li>
+    <li>Stops at a defined distance threshold</li>
+    <li>Stops automatically if the marker is lost</li>
+  </ul>
+
+  <h2>Key Engineering Insights</h2>
+
+  <ul>
+    <li>Nav2 exploration benefits from structured goal generation</li>
+    <li>Camera frame differs from robot base frame</li>
+    <li>ArUco pose provides direct control signals</li>
+    <li>Perception and control should be modular</li>
+  </ul>
+
+  <h2>Future Improvements</h2>
+
+  <ul>
+    <li>Add multi-marker tracking for 360° visibility</li>
+    <li>Improve follower smoothness</li>
+    <li>Add AprilTag support</li>
+    <li>Test on physical TurtleBot3</li>
+  </ul>
+
+  <h2>GitHub Repository</h2>
+
+  <p>
+    <a href="https://github.com/johnnyjvang/tb3_nav2_slam" target="_blank">
+      View Full Project on GitHub
+    </a>
+  </p>
+
+</div>
+
+</main>
+
+</body>
+</html>
