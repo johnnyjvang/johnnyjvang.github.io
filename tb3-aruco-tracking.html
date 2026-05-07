@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>TurtleBot3 ArUco Multi-Robot Tracking</title>
+
+  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/css/main.css" rel="stylesheet">
+</head>
+
+<body>
+
+<header class="header d-flex align-items-center sticky-top">
+  <div class="container-fluid d-flex justify-content-between">
+    <a href="index.html"><h1>Home</h1></a>
+  </div>
+</header>
+
+<main class="main">
+
+<div class="container mt-4">
+
+  <h1>TurtleBot3 ArUco Multi-Robot Tracking</h1>
+
+  <p>
+    <a href="https://github.com/johnnyjvang/tb3_nav2_slam" target="_blank">
+      View Full Project on GitHub
+    </a>
+  </p>
+
+  <p>
+    A ROS 2 (Jazzy) computer vision and mobile robotics project focused on
+    robot-to-robot tracking using OpenCV ArUco markers, RGB camera input,
+    LiDAR safety checks, recovery behavior, and VFH-style obstacle-aware following.
+  </p>
+
+  <!-- HERO GIF -->
+  <img src="https://raw.githubusercontent.com/johnnyjvang/tb3_nav2_slam/main/img/vfh_aruco_multi_follower.gif"
+       class="img-fluid mb-4"
+       alt="TurtleBot3 VFH ArUco multi-follower demo">
+
+  <h2>Project Overview</h2>
+
+  <p>
+    This project was built as a perception-to-control pipeline for following a moving
+    TurtleBot3 target robot in Gazebo. The follower robot uses an RGB camera to detect
+    ArUco markers mounted on the target robot, estimates marker position, and converts
+    that information into velocity commands.
+  </p>
+
+  <p>
+    The ArUco tracking work progressed from basic single-marker detection to multi-tag
+    tracking, smoother control, LiDAR-based safety behavior, recovery backup logic, and
+    VFH-style obstacle avoidance.
+  </p>
+
+  <h2>Development Progression</h2>
+
+    <div class="mb-4 border rounded p-3">
+    <h5><code>aruco_detector</code></h5>
+    <p class="mb-1"><strong>Purpose:</strong> Detects ArUco markers from camera input</p>
+    <p class="mb-0">
+        <strong>Why It Was Added:</strong>
+        Validated that the TurtleBot3 camera could see and identify ArUco tags in Gazebo
+    </p>
+    </div>
+
+    <div class="mb-4 border rounded p-3">
+    <h5><code>aruco_front_detector_only</code></h5>
+    <p class="mb-1"><strong>Purpose:</strong> Tests ArUco detection with marker-facing filtering</p>
+    <p class="mb-0">
+        <strong>Why It Was Added:</strong>
+        Added to test whether backside marker detections could be rejected using marker orientation
+    </p>
+    </div>
+
+    <div class="mb-4 border rounded p-3">
+    <h5><code>aruco_pose_tracker</code></h5>
+    <p class="mb-1"><strong>Purpose:</strong> Estimates marker pose and publishes target position</p>
+    <p class="mb-0">
+        <strong>Why It Was Added:</strong>
+        Converted raw marker detection into distance and offset values that a robot controller could use
+    </p>
+    </div>
+
+    <div class="mb-4 border rounded p-3">
+    <h5><code>aruco_follower</code></h5>
+    <p class="mb-1"><strong>Purpose:</strong> Follows target robot using pose-based control</p>
+    <p class="mb-0">
+        <strong>Why It Was Added:</strong>
+        Closed the loop by converting ArUco pose estimates into forward and turning velocity commands
+    </p>
+    </div>
+
+    <div class="mb-4 border rounded p-3">
+    <h5><code>aruco_multi_detector</code></h5>
+    <p class="mb-1"><strong>Purpose:</strong> Detects multiple ArUco tags and publishes structured detection data</p>
+    <p class="mb-0">
+        <strong>Why It Was Added:</strong>
+        Expanded tracking from one visible tag to multiple tags placed around the target robot
+    </p>
+    </div>
+
+    <div class="mb-4 border rounded p-3">
+    <h5><code>aruco_multi_follower</code></h5>
+    <p class="mb-1"><strong>Purpose:</strong> Follows the target robot using multi-tag priority logic</p>
+    <p class="mb-0">
+        <strong>Why It Was Added:</strong>
+        Improved tracking continuity when the target robot rotated and exposed different marker sides
+    </p>
+    </div>
+
+    <div class="mb-4 border rounded p-3">
+    <h5><code>aruco_upgraded_multi_follower</code></h5>
+    <p class="mb-1">
+        <strong>Purpose:</strong>
+        Adds EMA smoothing, proportional control, LiDAR safety, avoidance, and recovery backup
+    </p>
+    <p class="mb-0">
+        <strong>Why It Was Added:</strong>
+        Improved motion smoothness and added obstacle safety after the robot showed rough movement near poles
+    </p>
+    </div>
+
+    <div class="mb-4 border rounded p-3">
+    <h5><code>aruco_vfh_follower</code></h5>
+    <p class="mb-1">
+        <strong>Purpose:</strong>
+        Uses VFH-style LiDAR sector steering for smoother obstacle-aware following
+    </p>
+    <p class="mb-0">
+        <strong>Why It Was Added:</strong>
+        Replaced simple left/right avoidance with sector-based steering to reduce zig-zag behavior
+    </p>
+    </div>
+
+  <h2>What Was Built</h2>
+
+  <ul>
+    <li>ROS 2 camera subscriber for TurtleBot3 RGB image input</li>
+    <li>OpenCV ArUco detector for marker ID detection</li>
+    <li>Pose estimation using marker size and camera calibration approximation</li>
+    <li>Single-marker follower for basic visual robot tracking</li>
+    <li>Multi-marker detector for front, back, left, and right target tags</li>
+    <li>Multi-tag follower using marker priority logic</li>
+    <li>Backside marker filtering experiment using ArUco rotation vectors</li>
+    <li>EMA-smoothed follower to reduce noisy camera-control behavior</li>
+    <li>LiDAR emergency stop and recovery backup behavior</li>
+    <li>VFH-style LiDAR sector steering for smoother obstacle-aware following</li>
+  </ul>
+
+  <h2>Single ArUco Follower</h2>
+
+  <p>
+    The first working follower used one ArUco marker and a simple perception-to-control
+    pipeline. The camera detected the marker, estimated its pose, and the follower used
+    distance and horizontal offset to command the robot.
+  </p>
+
+  <!-- IMAGE -->
+  <img src="https://raw.githubusercontent.com/johnnyjvang/tb3_nav2_slam/main/img/aruco_detector.png"
+       class="img-fluid mb-4"
+       style="max-width: 600px;"
+       alt="ArUco detector output">
+
+  <!-- GIF -->
+  <img src="https://raw.githubusercontent.com/johnnyjvang/tb3_nav2_slam/main/img/aruco_follower.gif"
+       class="img-fluid mb-4"
+       alt="ArUco follower robot tracking demo">
+
+  <h4>Perception to Control Pipeline</h4>
+
+  <pre>
+Camera → ArUco Detection → Pose Estimation → Pose Topic → Follower Controller → cmd_vel
+  </pre>
+
+  <h4>Following Behavior</h4>
+  <ul>
+    <li>Moves forward when the target is far</li>
+    <li>Rotates toward the target when off-center</li>
+    <li>Stops at a defined distance threshold</li>
+    <li>Stops automatically if the marker is lost</li>
+  </ul>
+
+  <h2>Multi-ArUco Tracking</h2>
+
+  <p>
+    The next step was to move from one marker to multiple markers. This allowed the
+    target robot to be tracked from different viewing angles instead of only when one
+    marker was visible.
+  </p>
+
+  <p>
+    Four markers were assigned to the target robot:
+  </p>
+
+  <pre>
+0 = back
+1 = front
+2 = left
+3 = right
+  </pre>
+
+  <!-- GIF -->
+  <img src="https://raw.githubusercontent.com/johnnyjvang/tb3_nav2_slam/main/img/aruco_multi_follower.gif"
+       class="img-fluid mb-4"
+       alt="ArUco multi-follower robot tracking demo">
+
+  <h4>Multi-Tag Selection Logic</h4>
+  <ul>
+    <li>Detects all visible markers in the camera frame</li>
+    <li>Publishes structured detection data with marker ID, side, distance, and image offset</li>
+    <li>Prioritizes the back tag first, then side tags, then front tag</li>
+    <li>Improves tracking when the target robot rotates</li>
+  </ul>
+
+  <h2>Upgraded Multi-Follower</h2>
+
+  <p>
+    After basic multi-tag following worked, the follower was upgraded to improve motion
+    stability and safety. The original multi-follower reacted directly to camera readings,
+    which could create rough movement when marker estimates jumped between frames.
+  </p>
+
+  <p>
+    The upgraded version added smoothing, proportional control, LiDAR emergency stop,
+    simple obstacle avoidance, and recovery backup behavior.
+  </p>
+
+  <h4>Control Improvements</h4>
+  <ul>
+    <li>EMA smoothing reduces jitter from noisy ArUco distance and alignment readings</li>
+    <li>Proportional control scales forward and turning speed based on tracking error</li>
+    <li>LiDAR emergency stop prevents the robot from continuing forward into close obstacles</li>
+    <li>Recovery backup lets the robot reverse and turn away when it gets too close</li>
+    <li>Marker-facing filtering helps reduce false detections from the backside of tags</li>
+  </ul>
+
+  <h2>VFH ArUco Follower</h2>
+
+  <p>
+    The VFH follower was added after simple left/right avoidance caused rough movement
+    and zig-zagging near obstacles. Instead of only choosing left or right, the VFH-style
+    follower divides the LiDAR scan into angle sectors and chooses a safer steering
+    direction closest to the ArUco target direction.
+  </p>
+
+  <!-- GIF -->
+  <img src="https://raw.githubusercontent.com/johnnyjvang/tb3_nav2_slam/main/img/vfh_aruco_multi_follower.gif"
+       class="img-fluid mb-4"
+       alt="VFH ArUco multi-follower obstacle-aware demo">
+
+  <h4>VFH Pipeline</h4>
+
+  <pre>
+LiDAR Scan → Sector Generation → Clearance Check → Best Heading Selection → cmd_vel
+  </pre>
+
+  <h4>VFH Improvements</h4>
+  <ul>
+    <li>Uses multiple LiDAR sectors instead of only left/right decisions</li>
+    <li>Selects the open sector closest to the target direction</li>
+    <li>Creates smoother steering around poles and walls</li>
+    <li>Reduces oscillation compared to simple avoidance</li>
+    <li>Keeps emergency stop and recovery backup behavior as safety layers</li>
+  </ul>
+
+
+  <h2>Key Engineering Insights</h2>
+
+  <ul>
+    <li>Camera-based pose estimates can be noisy, so smoothing is important before control</li>
+    <li>Single-marker tracking works but loses reliability when the target rotates</li>
+    <li>Multi-tag tracking improves visibility around the robot body</li>
+    <li>Vision-based following needs LiDAR safety checks to avoid collisions</li>
+    <li>Simple left/right avoidance can create zig-zagging near obstacles</li>
+    <li>VFH-style sector steering provides smoother obstacle-aware following</li>
+  </ul>
+
+  <h2>Future Improvements</h2>
+
+  <ul>
+    <li>Add a formal state machine for following, avoiding, recovery, and lost-target modes</li>
+    <li>Improve marker-facing filtering for stronger backside rejection</li>
+    <li>Tune VFH parameters across more obstacle layouts</li>
+    <li>Add AprilTag support for comparison against ArUco tracking</li>
+    <li>Test the full tracking workflow on physical TurtleBot3 hardware</li>
+  </ul>
+
+  <h2>GitHub Repository</h2>
+
+  <p>
+    <a href="https://github.com/johnnyjvang/tb3_nav2_slam" target="_blank">
+      View Full Project on GitHub
+    </a>
+  </p>
+
+</div>
+
+</main>
+
+</body>
+</html>

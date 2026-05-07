@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="utf-8">
-  <title>TurtleBot3 Nav2 SLAM and ArUco Tracking</title>
+  <title>TurtleBot3 Nav2 SLAM Exploration</title>
 
   <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
   <link href="assets/css/main.css" rel="stylesheet">
@@ -21,7 +21,7 @@
 
 <div class="container mt-4">
 
-  <h1>TurtleBot3 Nav2 SLAM and ArUco Tracking</h1>
+  <h1>TurtleBot3 Nav2 SLAM Exploration</h1>
 
   <p>
     <a href="https://github.com/johnnyjvang/tb3_nav2_slam" target="_blank">
@@ -31,46 +31,139 @@
 
   <p>
     A ROS 2 (Jazzy) mobile robotics project focused on TurtleBot3 navigation,
-    autonomous exploration, multi-robot simulation, and camera-based robot following
-    using ArUco markers.
+    autonomous exploration, goal execution, patrol behavior, and map-based validation
+    in Gazebo.
   </p>
 
   <!-- HERO GIF -->
-  <img src="https://raw.githubusercontent.com/johnnyjvang/tb3_nav2_slam/main/img/aruco_follower.gif"
+  <img src="https://raw.githubusercontent.com/johnnyjvang/tb3_nav2_slam/main/img/timer_based_patrol_explorer.gif"
        class="img-fluid mb-4"
-       alt="TurtleBot3 ArUco follower demo">
+       alt="TurtleBot3 timer-based patrol explorer demo">
 
   <h2>Project Overview</h2>
 
   <p>
     This project was built as a hands-on testbed for learning and validating applied
-    mobile robotics workflows using TurtleBot3, ROS 2, Nav2, Gazebo, and OpenCV.
+    mobile robotics workflows using TurtleBot3, ROS 2, Nav2, SLAM, and Gazebo.
   </p>
 
   <p>
-    The project combines autonomous navigation experiments with perception-based robot
-    tracking. It includes timer-based patrol exploration, random safe goal exploration,
-    two-robot Gazebo simulation, ArUco marker detection, marker pose tracking, and
-    closed-loop robot-following behavior.
+    The Nav2 and SLAM portion focuses on progressively building navigation behavior
+    from simple goal execution to autonomous exploration. Each node was added to test
+    a specific capability before moving toward more complex exploration behavior.
   </p>
+
+  <h2>Navigation Progression</h2>
+
+  <p>
+    The project started with simple one-goal navigation so that Nav2 communication,
+    map usage, localization, and robot movement could be validated. After that,
+    return behavior, goal-list execution, random safe exploration, and timer-based
+    patrol exploration were added step by step.
+  </p>
+
+    <div class="mb-4 border rounded p-3">
+    <h5><code>single_goal_nav</code></h5>
+    <p class="mb-1"><strong>Purpose:</strong> Sends one Nav2 goal to the robot</p>
+    <p class="mb-0">
+        <strong>Why It Was Added:</strong>
+        Validated the basic Nav2 action client workflow and confirmed the robot could move to a target pose
+    </p>
+    </div>
+
+    <div class="mb-4 border rounded p-3">
+    <h5><code>single_goal_return</code></h5>
+    <p class="mb-1"><strong>Purpose:</strong> Sends a goal and returns from that goal</p>
+    <p class="mb-0">
+        <strong>Why It Was Added:</strong>
+        Tested repeatable navigation by sending the robot out and then back to its starting region
+    </p>
+    </div>
+
+    <div class="mb-4 border rounded p-3">
+    <h5><code>goal_from_list</code></h5>
+    <p class="mb-1"><strong>Purpose:</strong> Runs navigation goals from a predefined list</p>
+    <p class="mb-0">
+        <strong>Why It Was Added:</strong>
+        Expanded from one goal to multiple known waypoints for route-following experiments
+    </p>
+    </div>
+
+    <div class="mb-4 border rounded p-3">
+    <h5><code>random_safe_goal_explorer</code></h5>
+    <p class="mb-1"><strong>Purpose:</strong> Selects safe random goals for exploration testing</p>
+    <p class="mb-0">
+        <strong>Why It Was Added:</strong>
+        Added autonomous goal sampling while avoiding obviously unsafe or unreachable map regions
+    </p>
+    </div>
+
+    <div class="mb-4 border rounded p-3">
+    <h5><code>timer_based_patrol_explorer</code></h5>
+    <p class="mb-1"><strong>Purpose:</strong> Runs patrol and exploration behavior for a timed session</p>
+    <p class="mb-0">
+        <strong>Why It Was Added:</strong>
+        Added structured exploration by sending goals at intervals and saving output maps for review
+    </p>
+    </div>
 
   <h2>What Was Built</h2>
 
   <ul>
-    <li>ROS 2 Python nodes for Nav2 goal navigation and exploration</li>
+    <li>ROS 2 Python nodes for Nav2 goal navigation</li>
+    <li>Single-goal navigation for basic action client testing</li>
+    <li>Return navigation behavior to validate repeated movement</li>
+    <li>Goal-list navigation for waypoint-based route execution</li>
+    <li>Random safe-goal exploration for autonomous movement testing</li>
     <li>Timer-based patrol exploration with saved map output</li>
-    <li>Random safe goal exploration for autonomous movement testing</li>
-    <li>Custom two-TurtleBot3 Gazebo simulation setup</li>
-    <li>ArUco marker detection using an RGB camera</li>
-    <li>ArUco pose tracking with robot-friendly coordinate conversion</li>
-    <li>Closed-loop follower node for visual robot following</li>
+    <li>Custom TurtleBot3 Gazebo world launch support</li>
+    <li>Map logging and visual validation of robot exploration behavior</li>
+  </ul>
+
+  <h2>Random Safe Goal Explorer</h2>
+
+  <p>
+    The random safe goal explorer was added after basic Nav2 movement was working.
+    Instead of manually choosing every goal, this node samples random candidate goals
+    and checks whether they are usable before sending them to Nav2.
+  </p>
+
+  <p>
+    This helped test whether the robot could keep moving through the map without
+    constantly requiring manually selected target poses.
+  </p>
+
+  <!-- GIF -->
+  <img src="https://raw.githubusercontent.com/johnnyjvang/tb3_nav2_slam/main/img/random_safe_goal_explorer.gif"
+       class="img-fluid mb-4"
+       alt="Random safe goal explorer demo">
+
+  <!-- IMAGE -->
+  <img src="https://raw.githubusercontent.com/johnnyjvang/tb3_nav2_slam/main/img/random_safe_goal_map_20260504_212318.png"
+       class="img-fluid mb-4"
+       style="max-width: 600px;"
+       alt="Random safe goal explorer generated map">
+
+  <h4>Random Exploration Behavior</h4>
+  <ul>
+    <li>Samples random candidate goals from the map</li>
+    <li>Avoids invalid or unsafe goal areas</li>
+    <li>Uses Nav2 to plan and execute paths</li>
+    <li>Tracks visited locations for visual review</li>
   </ul>
 
   <h2>Timer-Based Patrol Explorer</h2>
 
   <p>
-    The timer-based patrol explorer sends Nav2 goals at timed intervals so the robot
-    can patrol and explore a mapped environment.
+    The timer-based patrol explorer was added to make exploration more structured.
+    Instead of waiting for one goal to fully define the behavior, the node dispatches
+    goals at timed intervals so the robot continues moving and patrolling during a
+    test session.
+  </p>
+
+  <p>
+    This made the exploration behavior easier to repeat, observe, and compare across
+    simulation runs.
   </p>
 
   <!-- GIF -->
@@ -78,13 +171,13 @@
        class="img-fluid mb-4"
        alt="Timer-based patrol explorer demo">
 
-  <!-- IMAGE (600px, LEFT ALIGNED) -->
+  <!-- IMAGE -->
   <img src="https://raw.githubusercontent.com/johnnyjvang/tb3_nav2_slam/main/img/timer_based_patrol_map_20260504_212637.png"
        class="img-fluid mb-4"
        style="max-width: 600px;"
        alt="Timer-based patrol generated map">
 
-  <h4>Exploration Behavior</h4>
+  <h4>Patrol Exploration Behavior</h4>
   <ul>
     <li>Dispatches navigation goals at timed intervals</li>
     <li>Uses Nav2 to plan and execute paths</li>
@@ -92,53 +185,31 @@
     <li>Saves a map visualization of visited goals</li>
   </ul>
 
-  <h2>ArUco-Based Robot Following</h2>
-
-  <p>
-    The ArUco following system demonstrates camera-based robot-to-robot tracking.
-  </p>
-
-  <!-- IMAGE (600px, LEFT ALIGNED) -->
-  <img src="https://raw.githubusercontent.com/johnnyjvang/tb3_nav2_slam/main/img/aruco_detector.png"
-       class="img-fluid mb-4"
-       style="max-width: 600px;"
-       alt="ArUco marker detection output">
-
-  <!-- GIF -->
-  <img src="https://raw.githubusercontent.com/johnnyjvang/tb3_nav2_slam/main/img/aruco_follower.gif"
-       class="img-fluid mb-4"
-       alt="ArUco follower robot tracking demo">
-
-  <h4>Perception to Control Pipeline</h4>
+  <h2>System Pipeline</h2>
 
   <pre>
-Camera → ArUco Detection → Pose Estimation → Pose Topic → Follower Controller → cmd_vel
+Map / SLAM Output → Nav2 Stack → Goal Selection Node → Navigation Action Client → Robot Motion → Map Result Logging
   </pre>
-
-  <h4>Following Behavior</h4>
-  <ul>
-    <li>Moves forward when the target is far</li>
-    <li>Rotates toward the target when off-center</li>
-    <li>Stops at a defined distance threshold</li>
-    <li>Stops automatically if the marker is lost</li>
-  </ul>
 
   <h2>Key Engineering Insights</h2>
 
   <ul>
-    <li>Nav2 exploration benefits from structured goal generation</li>
-    <li>Camera frame differs from robot base frame</li>
-    <li>ArUco pose provides direct control signals</li>
-    <li>Perception and control should be modular</li>
+    <li>Nav2 behavior should be validated with simple goals before adding exploration logic</li>
+    <li>Return behavior is useful for testing repeatability and localization stability</li>
+    <li>Goal-list navigation helps bridge manual navigation and autonomous exploration</li>
+    <li>Random exploration requires safety checks before sending goals to Nav2</li>
+    <li>Timer-based patrol behavior makes exploration testing easier to repeat and compare</li>
+    <li>Saved map outputs make it easier to validate coverage and path behavior after a run</li>
   </ul>
 
   <h2>Future Improvements</h2>
 
   <ul>
-    <li>Add multi-marker tracking for 360° visibility</li>
-    <li>Improve follower smoothness</li>
-    <li>Add AprilTag support</li>
-    <li>Test on physical TurtleBot3</li>
+    <li>Add stronger frontier-based exploration</li>
+    <li>Improve automatic goal validation using costmap data</li>
+    <li>Add more detailed exploration metrics</li>
+    <li>Compare random exploration against timer-based patrol behavior</li>
+    <li>Test the navigation workflow on physical TurtleBot3 hardware</li>
   </ul>
 
   <h2>GitHub Repository</h2>
